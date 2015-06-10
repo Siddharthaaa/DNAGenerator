@@ -1,0 +1,1179 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<java version="1.8.0_25" class="java.beans.XMLDecoder">
+ <object class="GeneCode" id="GeneCode0">
+  <void property="name">
+   <string>New</string>
+  </void>
+ </object>
+<void class="GeneCode" id="Field0" method="getField">
+ <string>codons</string>
+ <void id="Hashtable0" method="get">
+  <object idref="GeneCode0"/>
+  <void method="remove">
+   <string>CTG</string>
+  </void>
+  <void method="remove">
+   <string>TTG</string>
+  </void>
+  <void method="remove">
+   <string>CTC</string>
+  </void>
+  <void method="remove">
+   <string>CAT</string>
+  </void>
+  <void method="remove">
+   <string>CTA</string>
+  </void>
+  <void method="remove">
+   <string>TTC</string>
+  </void>
+  <void method="remove">
+   <string>GCG</string>
+  </void>
+  <void method="remove">
+   <string>TTA</string>
+  </void>
+  <void method="remove">
+   <string>TAT</string>
+  </void>
+  <void method="remove">
+   <string>ATT</string>
+  </void>
+  <void method="remove">
+   <string>CGT</string>
+  </void>
+  <void method="remove">
+   <string>GCC</string>
+  </void>
+  <void method="remove">
+   <string>TGT</string>
+  </void>
+  <void method="remove">
+   <string>GCA</string>
+  </void>
+  <void method="remove">
+   <string>CAG</string>
+  </void>
+  <void method="remove">
+   <string>TAG</string>
+  </void>
+  <void method="remove">
+   <string>ATG</string>
+  </void>
+  <void method="remove">
+   <string>CAC</string>
+  </void>
+  <void method="remove">
+   <string>CGG</string>
+  </void>
+  <void method="remove">
+   <string>CAA</string>
+  </void>
+  <void method="remove">
+   <string>TGG</string>
+  </void>
+  <void method="remove">
+   <string>TAC</string>
+  </void>
+  <void method="remove">
+   <string>ATC</string>
+  </void>
+  <void method="remove">
+   <string>CGC</string>
+  </void>
+  <void method="remove">
+   <string>TAA</string>
+  </void>
+  <void method="remove">
+   <string>AAT</string>
+  </void>
+  <void method="remove">
+   <string>ATA</string>
+  </void>
+  <void method="remove">
+   <string>CGA</string>
+  </void>
+  <void method="remove">
+   <string>TGC</string>
+  </void>
+  <void method="remove">
+   <string>TGA</string>
+  </void>
+  <void method="remove">
+   <string>AGT</string>
+  </void>
+  <void method="remove">
+   <string>GTT</string>
+  </void>
+  <void method="remove">
+   <string>CCT</string>
+  </void>
+  <void method="remove">
+   <string>AAG</string>
+  </void>
+  <void method="remove">
+   <string>TCT</string>
+  </void>
+  <void method="remove">
+   <string>AAC</string>
+  </void>
+  <void method="remove">
+   <string>AGG</string>
+  </void>
+  <void method="remove">
+   <string>AAA</string>
+  </void>
+  <void method="remove">
+   <string>AGC</string>
+  </void>
+  <void method="remove">
+   <string>GTG</string>
+  </void>
+  <void method="remove">
+   <string>AGA</string>
+  </void>
+  <void method="remove">
+   <string>CCG</string>
+  </void>
+  <void method="remove">
+   <string>TCG</string>
+  </void>
+  <void method="remove">
+   <string>GTC</string>
+  </void>
+  <void method="remove">
+   <string>CCC</string>
+  </void>
+  <void method="remove">
+   <string>GTA</string>
+  </void>
+  <void method="remove">
+   <string>GAT</string>
+  </void>
+  <void method="remove">
+   <string>CCA</string>
+  </void>
+  <void method="remove">
+   <string>TCC</string>
+  </void>
+  <void method="remove">
+   <string>TCA</string>
+  </void>
+  <void method="remove">
+   <string>GGT</string>
+  </void>
+  <void method="remove">
+   <string>ACT</string>
+  </void>
+  <void method="remove">
+   <string>GAG</string>
+  </void>
+  <void method="remove">
+   <string>GGG</string>
+  </void>
+  <void method="remove">
+   <string>GAC</string>
+  </void>
+  <void method="remove">
+   <string>ACG</string>
+  </void>
+  <void method="remove">
+   <string>GAA</string>
+  </void>
+  <void method="remove">
+   <string>GGC</string>
+  </void>
+  <void method="remove">
+   <string>ACC</string>
+  </void>
+  <void method="remove">
+   <string>GGA</string>
+  </void>
+  <void method="remove">
+   <string>ACA</string>
+  </void>
+  <void method="remove">
+   <string>CTT</string>
+  </void>
+  <void method="remove">
+   <string>TTT</string>
+  </void>
+  <void method="put">
+   <string>YYZXZ</string>
+   <string>*</string>
+  </void>
+  <void method="put">
+   <string>YYZXY</string>
+   <string>*</string>
+  </void>
+  <void method="put">
+   <string>XXXYZ</string>
+   <string>*</string>
+  </void>
+  <void method="put">
+   <string>YYZXX</string>
+   <string>*</string>
+  </void>
+  <void method="put">
+   <string>XXXYY</string>
+   <string>*</string>
+  </void>
+  <void method="put">
+   <string>XZYXZ</string>
+   <string>*</string>
+  </void>
+  <void method="put">
+   <string>XXXYX</string>
+   <string>*</string>
+  </void>
+  <void method="put">
+   <string>ZXYXZ</string>
+   <string>*</string>
+  </void>
+  <void method="put">
+   <string>XZYXY</string>
+   <string>*</string>
+  </void>
+  <void method="put">
+   <string>ZXYXY</string>
+   <string>*</string>
+  </void>
+  <void method="put">
+   <string>XZYXX</string>
+   <string>*</string>
+  </void>
+  <void method="put">
+   <string>ZXYXX</string>
+   <string>*</string>
+  </void>
+  <void method="put">
+   <string>YYXXZ</string>
+   <string>*</string>
+  </void>
+  <void method="put">
+   <string>YYXXY</string>
+   <string>*</string>
+  </void>
+  <void method="put">
+   <string>YYXXX</string>
+   <string>*</string>
+  </void>
+  <void method="put">
+   <string>YZZZZ</string>
+   <string>*</string>
+  </void>
+  <void method="put">
+   <string>YZZZY</string>
+   <string>*</string>
+  </void>
+  <void method="put">
+   <string>YZZZX</string>
+   <string>*</string>
+  </void>
+  <void method="put">
+   <string>ZYYZZ</string>
+   <string>*</string>
+  </void>
+  <void method="put">
+   <string>XXZXZ</string>
+   <string>*</string>
+  </void>
+  <void method="put">
+   <string>ZYYZY</string>
+   <string>*</string>
+  </void>
+  <void method="put">
+   <string>XXZXY</string>
+   <string>*</string>
+  </void>
+  <void method="put">
+   <string>ZYYZX</string>
+   <string>*</string>
+  </void>
+  <void method="put">
+   <string>XXZXX</string>
+   <string>*</string>
+  </void>
+  <void method="put">
+   <string>YZXZZ</string>
+   <string>*</string>
+  </void>
+  <void method="put">
+   <string>YZXZY</string>
+   <string>*</string>
+  </void>
+  <void method="put">
+   <string>YZXZX</string>
+   <string>*</string>
+  </void>
+  <void method="put">
+   <string>XXXXZ</string>
+   <string>*</string>
+  </void>
+  <void method="put">
+   <string>XXXXY</string>
+   <string>*</string>
+  </void>
+  <void method="put">
+   <string>XXXXX</string>
+   <string>*</string>
+  </void>
+  <void method="put">
+   <string>XYZZZ</string>
+   <string>*</string>
+  </void>
+  <void method="put">
+   <string>XYZZY</string>
+   <string>*</string>
+  </void>
+  <void method="put">
+   <string>XYZZX</string>
+   <string>*</string>
+  </void>
+  <void method="put">
+   <string>YXYZZ</string>
+   <string>*</string>
+  </void>
+  <void method="put">
+   <string>YXYZY</string>
+   <string>*</string>
+  </void>
+  <void method="put">
+   <string>YZZYZ</string>
+   <string>*</string>
+  </void>
+  <void method="put">
+   <string>YXYZX</string>
+   <string>*</string>
+  </void>
+  <void method="put">
+   <string>YZZYY</string>
+   <string>*</string>
+  </void>
+  <void method="put">
+   <string>XYXZZ</string>
+   <string>*</string>
+  </void>
+  <void method="put">
+   <string>YZZYX</string>
+   <string>*</string>
+  </void>
+  <void method="put">
+   <string>XYXZY</string>
+   <string>*</string>
+  </void>
+  <void method="put">
+   <string>XYXZX</string>
+   <string>*</string>
+  </void>
+  <void method="put">
+   <string>ZYYYZ</string>
+   <string>*</string>
+  </void>
+  <void method="put">
+   <string>ZYYYY</string>
+   <string>*</string>
+  </void>
+  <void method="put">
+   <string>ZYYYX</string>
+   <string>*</string>
+  </void>
+  <void method="put">
+   <string>YZXYZ</string>
+   <string>*</string>
+  </void>
+  <void method="put">
+   <string>YZXYY</string>
+   <string>*</string>
+  </void>
+  <void method="put">
+   <string>YZXYX</string>
+   <string>*</string>
+  </void>
+  <void method="put">
+   <string>XYZYZ</string>
+   <string>*</string>
+  </void>
+  <void method="put">
+   <string>XYZYY</string>
+   <string>*</string>
+  </void>
+  <void method="put">
+   <string>XYZYX</string>
+   <string>*</string>
+  </void>
+  <void method="put">
+   <string>YXYYZ</string>
+   <string>*</string>
+  </void>
+  <void method="put">
+   <string>YXYYY</string>
+   <string>*</string>
+  </void>
+  <void method="put">
+   <string>YZZXZ</string>
+   <string>*</string>
+  </void>
+  <void method="put">
+   <string>YXYYX</string>
+   <string>*</string>
+  </void>
+  <void method="put">
+   <string>YZZXY</string>
+   <string>*</string>
+  </void>
+  <void method="put">
+   <string>XYXYZ</string>
+   <string>*</string>
+  </void>
+  <void method="put">
+   <string>YZZXX</string>
+   <string>*</string>
+  </void>
+  <void method="put">
+   <string>XYXYY</string>
+   <string>*</string>
+  </void>
+  <void method="put">
+   <string>XYXYX</string>
+   <string>*</string>
+  </void>
+  <void method="put">
+   <string>ZYYXZ</string>
+   <string>*</string>
+  </void>
+  <void method="put">
+   <string>ZYYXY</string>
+   <string>*</string>
+  </void>
+  <void method="put">
+   <string>ZYYXX</string>
+   <string>*</string>
+  </void>
+  <void method="put">
+   <string>YZXXZ</string>
+   <string>*</string>
+  </void>
+  <void method="put">
+   <string>YZXXY</string>
+   <string>*</string>
+  </void>
+  <void method="put">
+   <string>YZXXX</string>
+   <string>*</string>
+  </void>
+  <void method="put">
+   <string>ZZYZZ</string>
+   <string>*</string>
+  </void>
+  <void method="put">
+   <string>XYZXZ</string>
+   <string>*</string>
+  </void>
+  <void method="put">
+   <string>ZZYZY</string>
+   <string>*</string>
+  </void>
+  <void method="put">
+   <string>XYZXY</string>
+   <string>*</string>
+  </void>
+  <void method="put">
+   <string>ZZYZX</string>
+   <string>*</string>
+  </void>
+  <void method="put">
+   <string>XYZXX</string>
+   <string>*</string>
+  </void>
+  <void method="put">
+   <string>YXYXZ</string>
+   <string>*</string>
+  </void>
+  <void method="put">
+   <string>YXYXY</string>
+   <string>*</string>
+  </void>
+  <void method="put">
+   <string>YXYXX</string>
+   <string>*</string>
+  </void>
+  <void method="put">
+   <string>XYXXZ</string>
+   <string>*</string>
+  </void>
+  <void method="put">
+   <string>XYXXY</string>
+   <string>*</string>
+  </void>
+  <void method="put">
+   <string>XYXXX</string>
+   <string>*</string>
+  </void>
+  <void method="put">
+   <string>XZZZZ</string>
+   <string>*</string>
+  </void>
+  <void method="put">
+   <string>ZXZZZ</string>
+   <string>*</string>
+  </void>
+  <void method="put">
+   <string>XZZZY</string>
+   <string>*</string>
+  </void>
+  <void method="put">
+   <string>ZXZZY</string>
+   <string>*</string>
+  </void>
+  <void method="put">
+   <string>XZZZX</string>
+   <string>*</string>
+  </void>
+  <void method="put">
+   <string>ZXZZX</string>
+   <string>*</string>
+  </void>
+  <void method="put">
+   <string>YYYZZ</string>
+   <string>*</string>
+  </void>
+  <void method="put">
+   <string>YYYZY</string>
+   <string>*</string>
+  </void>
+  <void method="put">
+   <string>YYYZX</string>
+   <string>*</string>
+  </void>
+  <void method="put">
+   <string>XZXZZ</string>
+   <string>*</string>
+  </void>
+  <void method="put">
+   <string>ZXXZZ</string>
+   <string>*</string>
+  </void>
+  <void method="put">
+   <string>XZXZY</string>
+   <string>*</string>
+  </void>
+  <void method="put">
+   <string>ZXXZY</string>
+   <string>*</string>
+  </void>
+  <void method="put">
+   <string>XZXZX</string>
+   <string>*</string>
+  </void>
+  <void method="put">
+   <string>ZZYYZ</string>
+   <string>*</string>
+  </void>
+  <void method="put">
+   <string>ZXXZX</string>
+   <string>*</string>
+  </void>
+  <void method="put">
+   <string>ZZYYY</string>
+   <string>*</string>
+  </void>
+  <void method="put">
+   <string>ZZYYX</string>
+   <string>*</string>
+  </void>
+  <void method="put">
+   <string>XXYZZ</string>
+   <string>*</string>
+  </void>
+  <void method="put">
+   <string>XXYZY</string>
+   <string>*</string>
+  </void>
+  <void method="put">
+   <string>XXYZX</string>
+   <string>*</string>
+  </void>
+  <void method="put">
+   <string>XZZYZ</string>
+   <string>*</string>
+  </void>
+  <void method="put">
+   <string>ZXZYZ</string>
+   <string>*</string>
+  </void>
+  <void method="put">
+   <string>XZZYY</string>
+   <string>*</string>
+  </void>
+  <void method="put">
+   <string>ZXZYY</string>
+   <string>*</string>
+  </void>
+  <void method="put">
+   <string>XZZYX</string>
+   <string>*</string>
+  </void>
+  <void method="put">
+   <string>ZXZYX</string>
+   <string>*</string>
+  </void>
+  <void method="put">
+   <string>YYYYZ</string>
+   <string>*</string>
+  </void>
+  <void method="put">
+   <string>YYYYY</string>
+   <string>*</string>
+  </void>
+  <void method="put">
+   <string>YYYYX</string>
+   <string>*</string>
+  </void>
+  <void method="put">
+   <string>XZXYZ</string>
+   <string>*</string>
+  </void>
+  <void method="put">
+   <string>ZXXYZ</string>
+   <string>*</string>
+  </void>
+  <void method="put">
+   <string>XZXYY</string>
+   <string>*</string>
+  </void>
+  <void method="put">
+   <string>ZXXYY</string>
+   <string>*</string>
+  </void>
+  <void method="put">
+   <string>XZXYX</string>
+   <string>*</string>
+  </void>
+  <void method="put">
+   <string>ZZYXZ</string>
+   <string>*</string>
+  </void>
+  <void method="put">
+   <string>ZXXYX</string>
+   <string>*</string>
+  </void>
+  <void method="put">
+   <string>ZZYXY</string>
+   <string>*</string>
+  </void>
+  <void method="put">
+   <string>ZZYXX</string>
+   <string>*</string>
+  </void>
+  <void method="put">
+   <string>XXYYZ</string>
+   <string>*</string>
+  </void>
+  <void method="put">
+   <string>XXYYY</string>
+   <string>*</string>
+  </void>
+  <void method="put">
+   <string>XZZXZ</string>
+   <string>*</string>
+  </void>
+  <void method="put">
+   <string>XXYYX</string>
+   <string>*</string>
+  </void>
+  <void method="put">
+   <string>ZXZXZ</string>
+   <string>*</string>
+  </void>
+  <void method="put">
+   <string>XZZXY</string>
+   <string>*</string>
+  </void>
+  <void method="put">
+   <string>ZXZXY</string>
+   <string>*</string>
+  </void>
+  <void method="put">
+   <string>XZZXX</string>
+   <string>*</string>
+  </void>
+  <void method="put">
+   <string>ZXZXX</string>
+   <string>*</string>
+  </void>
+  <void method="put">
+   <string>YYYXZ</string>
+   <string>*</string>
+  </void>
+  <void method="put">
+   <string>YYYXY</string>
+   <string>*</string>
+  </void>
+  <void method="put">
+   <string>YYYXX</string>
+   <string>*</string>
+  </void>
+  <void method="put">
+   <string>XZXXZ</string>
+   <string>*</string>
+  </void>
+  <void method="put">
+   <string>ZXXXZ</string>
+   <string>*</string>
+  </void>
+  <void method="put">
+   <string>XZXXY</string>
+   <string>*</string>
+  </void>
+  <void method="put">
+   <string>ZXXXY</string>
+   <string>*</string>
+  </void>
+  <void method="put">
+   <string>XZXXX</string>
+   <string>*</string>
+  </void>
+  <void method="put">
+   <string>ZXXXX</string>
+   <string>*</string>
+  </void>
+  <void method="put">
+   <string>ZYZZZ</string>
+   <string>*</string>
+  </void>
+  <void method="put">
+   <string>ZYZZY</string>
+   <string>*</string>
+  </void>
+  <void method="put">
+   <string>ZYZZX</string>
+   <string>*</string>
+  </void>
+  <void method="put">
+   <string>YZYZZ</string>
+   <string>*</string>
+  </void>
+  <void method="put">
+   <string>YZYZY</string>
+   <string>*</string>
+  </void>
+  <void method="put">
+   <string>YZYZX</string>
+   <string>*</string>
+  </void>
+  <void method="put">
+   <string>ZYXZZ</string>
+   <string>*</string>
+  </void>
+  <void method="put">
+   <string>XXYXZ</string>
+   <string>*</string>
+  </void>
+  <void method="put">
+   <string>ZYXZY</string>
+   <string>*</string>
+  </void>
+  <void method="put">
+   <string>XXYXY</string>
+   <string>*</string>
+  </void>
+  <void method="put">
+   <string>ZYXZX</string>
+   <string>*</string>
+  </void>
+  <void method="put">
+   <string>XXYXX</string>
+   <string>*</string>
+  </void>
+  <void method="put">
+   <string>YXZZZ</string>
+   <string>*</string>
+  </void>
+  <void method="put">
+   <string>YXZZY</string>
+   <string>*</string>
+  </void>
+  <void method="put">
+   <string>YXZZX</string>
+   <string>*</string>
+  </void>
+  <void method="put">
+   <string>XYYZZ</string>
+   <string>*</string>
+  </void>
+  <void method="put">
+   <string>XYYZY</string>
+   <string>*</string>
+  </void>
+  <void method="put">
+   <string>XYYZX</string>
+   <string>*</string>
+  </void>
+  <void method="put">
+   <string>ZYZYZ</string>
+   <string>*</string>
+  </void>
+  <void method="put">
+   <string>ZYZYY</string>
+   <string>*</string>
+  </void>
+  <void method="put">
+   <string>YXXZZ</string>
+   <string>*</string>
+  </void>
+  <void method="put">
+   <string>ZYZYX</string>
+   <string>*</string>
+  </void>
+  <void method="put">
+   <string>YXXZY</string>
+   <string>*</string>
+  </void>
+  <void method="put">
+   <string>YZYYZ</string>
+   <string>*</string>
+  </void>
+  <void method="put">
+   <string>YXXZX</string>
+   <string>*</string>
+  </void>
+  <void method="put">
+   <string>YZYYY</string>
+   <string>*</string>
+  </void>
+  <void method="put">
+   <string>YZYYX</string>
+   <string>*</string>
+  </void>
+  <void method="put">
+   <string>ZYXYZ</string>
+   <string>*</string>
+  </void>
+  <void method="put">
+   <string>ZYXYY</string>
+   <string>*</string>
+  </void>
+  <void method="put">
+   <string>ZYXYX</string>
+   <string>*</string>
+  </void>
+  <void method="put">
+   <string>YXZYZ</string>
+   <string>*</string>
+  </void>
+  <void method="put">
+   <string>YXZYY</string>
+   <string>*</string>
+  </void>
+  <void method="put">
+   <string>YXZYX</string>
+   <string>*</string>
+  </void>
+  <void method="put">
+   <string>XYYYZ</string>
+   <string>*</string>
+  </void>
+  <void method="put">
+   <string>XYYYY</string>
+   <string>*</string>
+  </void>
+  <void method="put">
+   <string>XYYYX</string>
+   <string>*</string>
+  </void>
+  <void method="put">
+   <string>ZYZXZ</string>
+   <string>*</string>
+  </void>
+  <void method="put">
+   <string>ZYZXY</string>
+   <string>*</string>
+  </void>
+  <void method="put">
+   <string>YXXYZ</string>
+   <string>*</string>
+  </void>
+  <void method="put">
+   <string>ZYZXX</string>
+   <string>*</string>
+  </void>
+  <void method="put">
+   <string>YXXYY</string>
+   <string>*</string>
+  </void>
+  <void method="put">
+   <string>YZYXZ</string>
+   <string>*</string>
+  </void>
+  <void method="put">
+   <string>YXXYX</string>
+   <string>*</string>
+  </void>
+  <void method="put">
+   <string>YZYXY</string>
+   <string>*</string>
+  </void>
+  <void method="put">
+   <string>YZYXX</string>
+   <string>*</string>
+  </void>
+  <void method="put">
+   <string>ZYXXZ</string>
+   <string>*</string>
+  </void>
+  <void method="put">
+   <string>ZYXXY</string>
+   <string>*</string>
+  </void>
+  <void method="put">
+   <string>ZYXXX</string>
+   <string>*</string>
+  </void>
+  <void method="put">
+   <string>ZZZZZ</string>
+   <string>*</string>
+  </void>
+  <void method="put">
+   <string>ZZZZY</string>
+   <string>*</string>
+  </void>
+  <void method="put">
+   <string>ZZZZX</string>
+   <string>*</string>
+  </void>
+  <void method="put">
+   <string>YXZXZ</string>
+   <string>*</string>
+  </void>
+  <void method="put">
+   <string>YXZXY</string>
+   <string>*</string>
+  </void>
+  <void method="put">
+   <string>YXZXX</string>
+   <string>*</string>
+  </void>
+  <void method="put">
+   <string>ZZXZZ</string>
+   <string>*</string>
+  </void>
+  <void method="put">
+   <string>XYYXZ</string>
+   <string>*</string>
+  </void>
+  <void method="put">
+   <string>ZZXZY</string>
+   <string>*</string>
+  </void>
+  <void method="put">
+   <string>XYYXY</string>
+   <string>*</string>
+  </void>
+  <void method="put">
+   <string>ZZXZX</string>
+   <string>*</string>
+  </void>
+  <void method="put">
+   <string>XYYXX</string>
+   <string>*</string>
+  </void>
+  <void method="put">
+   <string>YXXXZ</string>
+   <string>*</string>
+  </void>
+  <void method="put">
+   <string>YXXXY</string>
+   <string>*</string>
+  </void>
+  <void method="put">
+   <string>YXXXX</string>
+   <string>*</string>
+  </void>
+  <void method="put">
+   <string>YYZZZ</string>
+   <string>*</string>
+  </void>
+  <void method="put">
+   <string>YYZZY</string>
+   <string>*</string>
+  </void>
+  <void method="put">
+   <string>YYZZX</string>
+   <string>*</string>
+  </void>
+  <void method="put">
+   <string>XZYZZ</string>
+   <string>*</string>
+  </void>
+  <void method="put">
+   <string>ZXYZZ</string>
+   <string>*</string>
+  </void>
+  <void method="put">
+   <string>XZYZY</string>
+   <string>*</string>
+  </void>
+  <void method="put">
+   <string>ZXYZY</string>
+   <string>*</string>
+  </void>
+  <void method="put">
+   <string>XZYZX</string>
+   <string>*</string>
+  </void>
+  <void method="put">
+   <string>ZZZYZ</string>
+   <string>*</string>
+  </void>
+  <void method="put">
+   <string>ZXYZX</string>
+   <string>*</string>
+  </void>
+  <void method="put">
+   <string>ZZZYY</string>
+   <string>*</string>
+  </void>
+  <void method="put">
+   <string>YYXZZ</string>
+   <string>*</string>
+  </void>
+  <void method="put">
+   <string>ZZZYX</string>
+   <string>*</string>
+  </void>
+  <void method="put">
+   <string>YYXZY</string>
+   <string>*</string>
+  </void>
+  <void method="put">
+   <string>YYXZX</string>
+   <string>*</string>
+  </void>
+  <void method="put">
+   <string>ZZXYZ</string>
+   <string>*</string>
+  </void>
+  <void method="put">
+   <string>ZZXYY</string>
+   <string>*</string>
+  </void>
+  <void method="put">
+   <string>ZZXYX</string>
+   <string>*</string>
+  </void>
+  <void method="put">
+   <string>XXZZZ</string>
+   <string>*</string>
+  </void>
+  <void method="put">
+   <string>XXZZY</string>
+   <string>*</string>
+  </void>
+  <void method="put">
+   <string>XXZZX</string>
+   <string>*</string>
+  </void>
+  <void method="put">
+   <string>YYZYZ</string>
+   <string>*</string>
+  </void>
+  <void method="put">
+   <string>XXXZZ</string>
+   <string>*</string>
+  </void>
+  <void method="put">
+   <string>YYZYY</string>
+   <string>*</string>
+  </void>
+  <void method="put">
+   <string>XXXZY</string>
+   <string>*</string>
+  </void>
+  <void method="put">
+   <string>YYZYX</string>
+   <string>*</string>
+  </void>
+  <void method="put">
+   <string>XXXZX</string>
+   <string>*</string>
+  </void>
+  <void method="put">
+   <string>XZYYZ</string>
+   <string>*</string>
+  </void>
+  <void method="put">
+   <string>ZXYYZ</string>
+   <string>*</string>
+  </void>
+  <void method="put">
+   <string>XZYYY</string>
+   <string>*</string>
+  </void>
+  <void method="put">
+   <string>ZXYYY</string>
+   <string>*</string>
+  </void>
+  <void method="put">
+   <string>XZYYX</string>
+   <string>*</string>
+  </void>
+  <void method="put">
+   <string>ZZZXZ</string>
+   <string>*</string>
+  </void>
+  <void method="put">
+   <string>ZXYYX</string>
+   <string>*</string>
+  </void>
+  <void method="put">
+   <string>ZZZXY</string>
+   <string>*</string>
+  </void>
+  <void method="put">
+   <string>YYXYZ</string>
+   <string>*</string>
+  </void>
+  <void method="put">
+   <string>ZZZXX</string>
+   <string>*</string>
+  </void>
+  <void method="put">
+   <string>YYXYY</string>
+   <string>*</string>
+  </void>
+  <void method="put">
+   <string>YYXYX</string>
+   <string>*</string>
+  </void>
+  <void method="put">
+   <string>ZZXXZ</string>
+   <string>*</string>
+  </void>
+  <void method="put">
+   <string>ZZXXY</string>
+   <string>*</string>
+  </void>
+  <void method="put">
+   <string>ZZXXX</string>
+   <string>*</string>
+  </void>
+  <void method="put">
+   <string>XXZYZ</string>
+   <string>*</string>
+  </void>
+  <void method="put">
+   <string>XXZYY</string>
+   <string>*</string>
+  </void>
+  <void method="put">
+   <string>XXZYX</string>
+   <string>*</string>
+  </void>
+  <void method="remove">
+   <string>GCT</string>
+  </void>
+ </void>
+</void>
+<void idref="Hashtable0"/>
+</java>

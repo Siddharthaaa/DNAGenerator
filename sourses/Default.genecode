@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<java version="1.8.0_25" class="java.beans.XMLDecoder">
+ <object class="GeneCode" id="GeneCode0"/>
+<void class="GeneCode" id="Field0" method="getField">
+ <string>codons</string>
+ <void id="Hashtable0" method="get">
+  <object idref="GeneCode0"/>
+  <void method="put">
+   <string>TAT</string>
+   <string>Mifasdf</string>
+  </void>
+  <void method="put">
+   <string>CGT</string>
+   <string>$43434</string>
+  </void>
+  <void method="put">
+   <string>TGT</string>
+   <string>Maaasi</string>
+  </void>
+  <void method="put">
+   <string>CGC</string>
+   <string>$34343</string>
+  </void>
+  <void method="put">
+   <string>AAT</string>
+   <string>$dfgdfg</string>
+  </void>
+  <void method="put">
+   <string>GTT</string>
+   <string>Mi</string>
+  </void>
+  <void method="put">
+   <string>TCT</string>
+   <string>Mdfdfdisdgf</string>
+  </void>
+  <void method="put">
+   <string>AAA</string>
+   <string>$adgfadgf</string>
+  </void>
+  <void method="put">
+   <string>CCC</string>
+   <string>Mi</string>
+  </void>
+  <void method="put">
+   <string>TTT</string>
+   <string>Mi</string>
+  </void>
+  <void method="put">
+   <string>TTG</string>
+   <string>$3232323</string>
+  </void>
+ </void>
+</void>
+<void idref="Hashtable0"/>
+</java>
