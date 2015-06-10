@@ -1,9 +1,14 @@
 import java.awt.Checkbox;
+import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.Graphics2D;
 import java.awt.GridLayout;
+import java.awt.TextArea;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
@@ -11,6 +16,8 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
 import javax.swing.JTextPane;
 
 
@@ -33,27 +40,43 @@ public class GeneticQuiz extends JFrame{
 		
 		setSize(500, 400);
 		JPanel panel = new JPanel();
-		panel.setLayout(new GridLayout(2,5));
+		panel.setLayout(new GridLayout(2,1));
 		add(panel);
 		
 		
-		JPanel inOutFields = new JPanel(new GridLayout(2,2,10,10));
+		JPanel inOutPanel = new JPanel(new GridLayout(2,2,10,10));
+		JPanel ButtonPanel1 = new JPanel(new GridLayout(2,1,5,5));
+		JPanel ButtonPanel2 = new JPanel(new GridLayout(2,1,5,5));
 		JLabel code = new JLabel("Code:");
 		JLabel translation = new JLabel("Translation");
 		status = new JLabel("            ");
 		
 		codeText = new JTextPane();
+		codeText.setEditable(false);
+		JScrollPane codeTextScrollPane = new JScrollPane(codeText);
 		translText = new JTextPane();
-		
-		inOutFields.add(code);
-		inOutFields.add(codeText);
-		inOutFields.add(translation);
-		inOutFields.add(translText);
+		JScrollPane translTextScrollPane = new JScrollPane(translText);
+		codeText.setPreferredSize(new Dimension(200,50));
 		
 		
 		
 		
-		JPanel options = new JPanel(new FlowLayout());
+		
+		JPanel optionsPanel = new JPanel(new FlowLayout());
+		JPanel configPanel = new JPanel(new GridLayout(1, 2));
+		
+		configPanel.add(optionsPanel);
+		
+		
+		BufferedImage bi = new BufferedImage(150, 100, BufferedImage.TYPE_4BYTE_ABGR);
+		Graphics2D graf = (Graphics2D) bi.getGraphics();
+		graf.drawLine(0, 0, 100, 100);
+		
+		JLabel imageLabel= new JLabel();
+		graf.drawLine(0, 100, 100, 00);
+		imageLabel.setIcon(new ImageIcon(bi));
+		configPanel.add(imageLabel);
+		
 		
 		reverse = new JCheckBox("Reverse");
 		
@@ -82,23 +105,38 @@ public class GeneticQuiz extends JFrame{
 			}
 		});
 		
-		options.add(reverse);
-		options.add(LabelTrDirection);
-		options.add(direrction);
-		options.add(LabelLength);
-		options.add(l);
-		options.add(createCode);
-		options.add(submitButton);
+		ButtonPanel1.add(code);
+		ButtonPanel1.add(createCode);
 		
-		panel.add(inOutFields);
-		panel.add(options);
-		panel.add(status);
+		ButtonPanel2.add(translation);
+		ButtonPanel2.add(submitButton);
+		
+		
+		inOutPanel.add(ButtonPanel1);
+		inOutPanel.add(codeTextScrollPane);
+		inOutPanel.add(ButtonPanel2);
+		inOutPanel.add(translTextScrollPane);
+		
+		optionsPanel.add(reverse);
+		optionsPanel.add(LabelTrDirection);
+		optionsPanel.add(direrction);
+		optionsPanel.add(LabelLength);
+		optionsPanel.add(l);
+		
+		
+		
+		
+		
+		panel.add(inOutPanel);
+		panel.add(configPanel);
+		//panel.add(status);
 	}
 
 	protected void getStringToTranslate() {
 		// TODO Auto-generated method stub
 		
-		codeText.setText(dnaGen.generateDNA(lengthList[l.getSelectedIndex()], reverse.isSelected(), direrction.getSelectedIndex()+1));
+		codeText.setText(dnaGen.generateDNA(l.getItemAt(l.getSelectedIndex()),
+						reverse.isSelected(), direrction.getSelectedIndex()+1));
 	}
 	
 	protected void evaluate() {
