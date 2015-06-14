@@ -151,7 +151,7 @@ public class GeneticQuiz extends JFrame{
 		else{
 			status.setText("FALSCH");
 			status.setForeground(Color.RED);
-			translTextSolve.setText("Lösung");
+			translTextSolve.setText(dnaGen.getSequence());
 		}
 	}
 }

@@ -1,5 +1,22 @@
+/** 
+*Speicher die genetischen Code:
+*	Standard
+*	Vertebrate Mitochondrial
+*	...
+*@author Abel Hodelin Hernandez
+*@author Timur Horn
+*@version 1.0
+*/
 public class GeneticCode
 {
+	/**
+	* Translation(mRNA zu Protein)
+	*
+	*@param codon: 3 Buchstaben
+	*@param code: genetischer Code
+	*
+	*@return amino: Aminosäure
+	*/
 	public String RNAToProtein(String codon, int code)
 	{
 		String amino = "";
@@ -165,12 +182,5 @@ public class GeneticCode
 		}
 		//System.out.println(amino);
 		return amino;
-	}
-	
-	public static void main(String args[])
-	{
-		GeneticCode geneticCode = new GeneticCode();
-		String tmp = geneticCode.RNAToProtein("AUA",2);
-		System.out.println(tmp);
 	}
 }
