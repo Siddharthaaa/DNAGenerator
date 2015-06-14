@@ -1,4 +1,5 @@
 import java.awt.Checkbox;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Graphics2D;
@@ -33,6 +34,7 @@ public class GeneticQuiz extends JFrame{
 	JComboBox<String> direrction;
 	JCheckBox reverse;
 	JTextPane translText;
+	JTextPane translTextSolve;
 	Integer[] lengthList = new Integer []{5,10,15,20,25,30};
 	String CBListe[] = {"DNA -> cDNA", "DNA -> mRNA",  "DNA -> Protein"};
 	
@@ -56,9 +58,12 @@ public class GeneticQuiz extends JFrame{
 		JScrollPane codeTextScrollPane = new JScrollPane(codeText);
 		translText = new JTextPane();
 		JScrollPane translTextScrollPane = new JScrollPane(translText);
-		codeText.setPreferredSize(new Dimension(200,50));
+		translTextSolve = new JTextPane();
+		JScrollPane translTextSolveScrollPane = new JScrollPane(translTextSolve);
 		
-		
+		JPanel translTextPanel = new JPanel(new GridLayout(2,1));
+		translTextPanel.add(translTextScrollPane);
+		translTextPanel.add(translTextSolveScrollPane);
 		
 		
 		
@@ -68,14 +73,11 @@ public class GeneticQuiz extends JFrame{
 		configPanel.add(optionsPanel);
 		
 		
-		BufferedImage bi = new BufferedImage(150, 100, BufferedImage.TYPE_4BYTE_ABGR);
-		Graphics2D graf = (Graphics2D) bi.getGraphics();
-		graf.drawLine(0, 0, 100, 100);
 		
-		JLabel imageLabel= new JLabel();
-		graf.drawLine(0, 100, 100, 00);
-		imageLabel.setIcon(new ImageIcon(bi));
-		configPanel.add(imageLabel);
+		GeneCode gc = new GeneCode("TEST","ATCG",3);
+		ImagePanel imageCode = new ImagePanel(gc.getCodeSun());
+		
+		configPanel.add(imageCode);
 		
 		
 		reverse = new JCheckBox("Reverse");
@@ -115,13 +117,14 @@ public class GeneticQuiz extends JFrame{
 		inOutPanel.add(ButtonPanel1);
 		inOutPanel.add(codeTextScrollPane);
 		inOutPanel.add(ButtonPanel2);
-		inOutPanel.add(translTextScrollPane);
+		inOutPanel.add(translTextPanel);
 		
 		optionsPanel.add(reverse);
 		optionsPanel.add(LabelTrDirection);
 		optionsPanel.add(direrction);
 		optionsPanel.add(LabelLength);
 		optionsPanel.add(l);
+		optionsPanel.add(status);
 		
 		
 		
@@ -142,11 +145,13 @@ public class GeneticQuiz extends JFrame{
 	protected void evaluate() {
 		// TODO Auto-generated method stub
 		if(dnaGen.checkSequence(translText.getText())){
-			status.setText("Gratulation");
+			status.setText("Gratulation!!!");
+			status.setForeground(Color.GREEN);
 		}
 		else{
 			status.setText("FALSCH");
-			translText.setText("PLATZHALTER");
+			status.setForeground(Color.RED);
+			translTextSolve.setText("Lösung");
 		}
 	}
 }
