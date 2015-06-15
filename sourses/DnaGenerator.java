@@ -1,33 +1,49 @@
-/** Autoren: Abel Hodelin Hernandez
-	Timur Horn*/
-	/* */
+import java.util.Random;
 
-import java.util.*;
-
+/** 
+*Ein Programm für üben der genetiaschen Verfahren:
+*Replication (DNA zu cDNA), Transcription(DNA zu mRNA), Translation(mRNA zu Protein).
+*
+*@author Abel Hodelin Hernandez
+*@author Timur Horn
+*@version 1.0
+*/
 public class DnaGenerator
 {
+	
 	private Random random = new Random();
-	public String dnaGeneral;
-	public String cdnaGeneral;
-	public String rnaGeneral;
-	public String proteinGeneral;
-	private boolean senseGeneral;
-	private int seqTypGeneral;
+	public String dnaGeneral; // generierte DNA-Sequenz 
+	public String cdnaGeneral; // cDNA
+	public String rnaGeneral; // mRNA
+	public String proteinGeneral; // Protein
+	private boolean senseGeneral; // Richtung zum lesen
+	private int seqTypGeneral; // Verfahren
+	private int geneCodeGeneral; // genetiche Code
 
-	/*Generiert die DNAsequenz sowohl ruckwear als auch forwear*/
+	
+	/**
+	* Generiert die DNA-Sequenz
+	*@param seqLeng: Länge der zu erzeugender DNA-Sequenz (Nukleotide oder Aminosäure). 
+	*@param invert: Richtung der zu erzeugender DNA-Sequenz.
+	*@param typSeqToCheck: Welche Verfahren wird simuliert.
+	*
+	*@return dnaGeneral: DNA-Sequenz
+	*/
 	public String generateDNA(int seqLeng ,boolean invert, int typSeqToCheck)
 	{
 		String dnaSequenz = "";
 		seqTypGeneral = typSeqToCheck;
 		senseGeneral = invert;
 		
+		/* Translation (DNA zu Protein) */
 		if (typSeqToCheck == 3)
 			seqLeng = seqLeng * 3;
 		
+		/* Generierung der DNA-Sequenz*/
 		for(int i = 0; i < seqLeng; i ++)
 		{
 			int nucleotideRandomizer = 1 + random.nextInt(4);
-			String nucleotide = "";
+			String nucleotide = ""; // Nukleotide
 			switch(nucleotideRandomizer)
 			{
 				case 1: nucleotide = "A";
@@ -45,21 +61,38 @@ public class DnaGenerator
 		dnaGeneral = dnaSequenz;
 		return dnaGeneral;
 	}
-	
-	private String invertSequence(String dna)
+
+	/**
+	* Invertiert die XNA-Sequenz
+	*
+	*@param dna: XNA-Sequenz umzukehren
+	*@return dna: umgekehrte XNA-Sequenz
+	*/
+	public String invertSequence(String dna)
 	{
 		dna = new StringBuffer(dna).reverse().toString();
 		return dna;
 	}
 	
-	// DNA to cDNA
-	private String dnaToCDNA()
+	public void setCode(int geneCode)
+	{
+		geneCodeGeneral = geneCode;
+	}
+	
+	
+	/**
+	* Replication (DNA zu cDNA)
+	*
+	*@return cdnaGeneral: cDNA-Sequenz
+	*/
+	public String dnaToCDNA()
 	{
 		String cDNA = "";
 		
 		if(!senseGeneral)
 			dnaGeneral = invertSequence(dnaGeneral);
 
+			/* Replication (DNA zu cDNA)*/
 			for(char c : dnaGeneral.toCharArray())
 			{
 				if(c == 'A')
@@ -75,14 +108,19 @@ public class DnaGenerator
 		return cdnaGeneral;
 	}
 	
-	//DNA to mRNA
-	private String dnaToMRNA()
+	/**
+	* Transcription (DNA zu mRNA)
+	*
+	*@return rnaGeneral: mRNA-Sequenz
+	*/
+	public String dnaToMRNA()
 	{
 		String mRNA = "";
 		
 		if(!senseGeneral)
 			dnaGeneral = invertSequence(dnaGeneral);
 
+		/* Transcription (DNA zu mRNA)*/
 		for(char c : dnaGeneral.toCharArray())
 		{
 			if(c == 'A')
@@ -98,16 +136,24 @@ public class DnaGenerator
 		return rnaGeneral;
 	}
 	
-	//RNA to protein
-	private String dnaToProtein(int code)
+	/**
+	* Translation (mRNA zu Protein)
+	*
+	*@param code: genetischer Code
+	*
+	*@return proteinGeneral: Protein-Sequenz
+	*/
+	public String dnaToProtein(int code)
 	{
 		String protein = "";
-		String codon = "";
+		String codon = ""; // 3 Buchstabe-Code
 		String mRNA = dnaToMRNA();
-		GeneticCode geneticCode = new GeneticCode();
+		GeneticCode geneticCode = new GeneticCode(); // genetischer Code
+		
+		/* Translation(mRNA zu Protein)*/
 		for(char c : mRNA.toCharArray())
 		{
-			codon += c;
+			codon += c; // Erzeugen der Codenen
 			
 			if(codon.length() == 3)
 			{
@@ -120,17 +166,25 @@ public class DnaGenerator
 		return proteinGeneral;
 	}
 	
-	/*Analiziert das Ergebnis*/
+	/**
+	*Analysiert das Ergebnis
+	*Vergleich die erzeugte X-Sequenze mit der Sequenz des Benutzers
+	*@param querySequence: Sequenz des Benutzers
+	*
+	*@return true wenn beide Sequenze gleich sind, sonst false
+	*/
 	public boolean checkSequence(String querySequence)
 	{
 		String generatedSequence = "";
+	
+		/* Sequenz zu analysieren*/
 		switch(seqTypGeneral)
 		{
 			case 1: generatedSequence = dnaToCDNA();
 					break;
 			case 2: generatedSequence = dnaToMRNA();
 					break;
-			case 3: generatedSequence = dnaToProtein(seqTypGeneral);
+			case 3: generatedSequence = dnaToProtein(geneCodeGeneral);
 					break;
 		}
 		if(!generatedSequence.equalsIgnoreCase(querySequence))
@@ -138,5 +192,26 @@ public class DnaGenerator
 			return false;
 		}
 		return true;
+	}
+	/**
+	*Zeigt das Ergebnis (Sequenze)
+	*
+	*@return seq: X-Sequenze
+	*/
+	public String getSequence()
+	{
+		int seqTyp = seqTypGeneral;
+		String seq = "";
+		
+		switch(seqTyp)
+		{
+			case 1: seq = cdnaGeneral;
+				break;
+			case 2: seq = rnaGeneral;
+				break;
+			case 3: seq = rnaGeneral + "\n" + proteinGeneral;
+				break;
+		}
+		return seq;
 	}
 }
