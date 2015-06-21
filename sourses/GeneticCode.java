@@ -15,7 +15,11 @@ public class GeneticCode
 	*@param codon: 3 Buchstaben
 	*@param code: genetischer Code
 	*
+<<<<<<< HEAD
 	*@return amino: Aminosäure
+=======
+	*@return amino: AminosÃ¤ure
+>>>>>>> origin/master
 	*/
 	public String RNAToProtein(String codon, int code)
 	{

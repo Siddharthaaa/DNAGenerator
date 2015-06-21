@@ -5,6 +5,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.Enumeration;
 
 import javax.swing.JButton;
@@ -199,6 +200,7 @@ public class ConfigGeneCode extends JDialog implements ActionListener {
 	 
 	 private boolean saveCodeFile(String f)
 	 {
+		 readTable();
 		 if(f == null)
 			 return false;
 		 if(!f.endsWith(GeneCode.FILEEXTENTION))
@@ -208,8 +210,12 @@ public class ConfigGeneCode extends JDialog implements ActionListener {
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			return false;
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
-		 return false;
+		 return true;
 	 }
 	 
 	 
@@ -221,6 +227,12 @@ public class ConfigGeneCode extends JDialog implements ActionListener {
 			setGeneCode(gc);
 			return gc;
 		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}

@@ -1,8 +1,16 @@
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.ObjectInput;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutput;
+import java.io.ObjectOutputStream;
+import java.io.OutputStream;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.Enumeration;
@@ -13,6 +21,7 @@ import java.awt.Font;
 import java.awt.FontMetrics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
+import java.awt.geom.Arc2D;
 import java.awt.image.BufferedImage;
 import java.beans.XMLDecoder;
 import java.beans.XMLEncoder;
@@ -26,17 +35,82 @@ public class GeneCode implements Serializable {
 	
 	public final static String FILEEXTENTION = ".genecode";
 	
-	String name;
+	private String name;
 	private char[] alphabet;
 	private int wordLength;
+	private BufferedImage img;
 	
-	public Hashtable<String, String> codons;
+	private Hashtable<String, String> codons;
+	
+	//colors for created image
+	Color [] colors;
+	
 	
 	public GeneCode(){
-		this("Default","ACGT",3);
+		this("Default","ACGU",3);
+		setCodon("AUU","I"); //1
+		setCodon("AUC","I"); //2
+		setCodon("AUA","I");
+		setCodon("AUG","M"); //Start
+		setCodon("ACU","T"); //5
+		setCodon("ACC","T"); //6
+		setCodon("ACA","T"); //7
+		setCodon("ACG","T"); //8
+		setCodon("AAU","N"); //9
+		setCodon("AAC","N"); //10
+		setCodon("AAA","K"); //11
+		setCodon("AAG","K"); //12
+		setCodon("AGU","S"); //13
+		setCodon("AGC","S"); //14
+		setCodon("GUU","V"); //17
+		setCodon("GUC","V"); //18
+		setCodon("GUA","V"); //19
+		setCodon("GUG","V"); //20
+		setCodon("GCU","A"); //21
+		setCodon("GCC","A"); //22
+		setCodon("GCA","A"); //23
+		setCodon("GCG","A"); //24
+		setCodon("GAU","D"); //25
+		setCodon("GAC","D"); //26 
+		setCodon("GAA","E"); //27
+		setCodon("GAG","E"); //28
+		setCodon("GGU","G"); //29
+		setCodon("GGC","G"); //30
+		setCodon("GGA","G"); //31
+		setCodon("GGG","G"); //32
+		setCodon("UUU","F"); //33
+		setCodon("UUC","F"); //34
+		setCodon("UUA","L"); //35
+		setCodon("UUG","L"); //36
+		setCodon("UCU","S"); //37
+		setCodon("UCC","S"); //38
+		setCodon("UCA","S"); //39
+		setCodon("UCG","S"); //40
+		setCodon("UAU","Y"); //41
+		setCodon("UAC","Y"); //42
+		setCodon("UGU","C"); //45
+		setCodon("UGC","C"); //46		 
+		setCodon("UGG","W"); //48		 
+		setCodon("CUU","L"); //49
+		setCodon("CUC","L"); //50
+		setCodon("CUA","L"); //51
+		setCodon("CUG","L"); //52
+		setCodon("CCU","P"); //53
+		setCodon("CCC","P"); //54
+		setCodon("CCA","P"); //55
+		setCodon("CCG","P"); //56
+		setCodon("CAU","H"); //57
+		setCodon("CAC","H"); //58
+		setCodon("CAA","Q"); //59
+		setCodon("CAG","Q"); //60
+		setCodon("CGU","R"); //61
+		setCodon("CGC","R"); //62
+		setCodon("CGA","R"); //63
+		setCodon("CGG","R"); //64
 	}
 	
 	public GeneCode(String name, String alph, int l){
+		
 		codons = new Hashtable<String, String>();
 		this.alphabet = alph.toCharArray();
 		alph="";
@@ -48,7 +122,22 @@ public class GeneCode implements Serializable {
 		
 		this.name = name;
 		wordLength = l;
+		colors =  new Color[alphabet.length];
+		for(int i = 0;i<colors.length;i++){
+			float f = (float) (0.5f+0.5*((float)i/colors.length));
+			colors[i] = new Color(f,f,f);
+		}
 		init("",0);
+	}
+	
+	public GeneCode(GeneCode g){
+		
+		colors = g.colors.clone();
+		alphabet = g.alphabet.clone();
+		codons = (Hashtable<String, String>) g.codons.clone();
+		name = g.name;
+		wordLength = g.wordLength;
+		
 	}
 	
 	private void init(String prefix, int position ){
@@ -71,25 +160,24 @@ public class GeneCode implements Serializable {
 		return false;
 	}
 	
-	boolean SaveAs(String FileName) throws FileNotFoundException{
+	boolean SaveAs(String FileName) throws IOException{
 		
-		 XMLEncoder e = new XMLEncoder(
-                 new BufferedOutputStream(
-                     new FileOutputStream(FileName)));
-		 e.writeObject(this);
-		 e.close();
-		return false;
+		 OutputStream file = new FileOutputStream(FileName);
+	     OutputStream buffer = new BufferedOutputStream(file);
+	     ObjectOutput output = new ObjectOutputStream(buffer);
+		 output.writeObject(this);
+		 output.close();
+		return true;
 	}
 	
-	static GeneCode ReadCode(String fileName) throws FileNotFoundException{
-		 XMLDecoder d = null;
+	static GeneCode ReadCode(String fileName) throws IOException, ClassNotFoundException{
+		
+		InputStream file = new FileInputStream(fileName);
+	    InputStream buffer = new BufferedInputStream(file);
+	    ObjectInput input = new ObjectInputStream (buffer);
 	
-			d = new XMLDecoder(
-			         new BufferedInputStream(
-			             new FileInputStream(fileName)));
-	
-		 GeneCode result = (GeneCode) d.readObject();
-		 d.close();
+		 GeneCode result = (GeneCode) input.readObject();
+		 input.close();
 		return result;
 	}
 	
@@ -119,11 +207,8 @@ public class GeneCode implements Serializable {
 	}
 	
 	public GeneCode clone(){
-		GeneCode gc = new GeneCode("","A",0);
-		gc.alphabet = alphabet.clone();
-		gc.codons = (Hashtable<String, String>) codons.clone();
-		gc.name = name;
-		gc.wordLength = wordLength;
+		GeneCode gc = new GeneCode(this);
+		
 		return gc;
 	}
 
@@ -147,12 +232,12 @@ public class GeneCode implements Serializable {
 	}
 	
 	public String getCodonKeyFromGraph(double angle){
+		angle %= Math.PI*2;
 		String key = "";
 		double angleStep = Math.PI*2;
 		for(int i =0;i<wordLength;i++){
 			angleStep /= alphabet.length;
 			int index = (int)(angle/angleStep);
-			System.out.println(index);
 			key += alphabet[index];
 			angle %= angleStep;
 		}
@@ -160,19 +245,29 @@ public class GeneCode implements Serializable {
 	}
 	
 	public BufferedImage getCodeSun(){
-		int w = 1000;
-		int h = 1000;
+		
+		int smallestCell = 30;
+		int BoundDistance = 40;
+		int w = smallestCell;
+		int h = 0;
+		
+		for(int i = 0;i<wordLength;i++){
+			h += 2*w;
+			w *= alphabet.length/(1+(float)(i+1)/wordLength);
+		}
+		h+=30;
+		w = h;
 		
 		int mx= w/2;
 		int my= h/2;
 		
 		int r0,r1;
-		r0 =0;
-		r1= h/4;
+		r1= (w-2*BoundDistance)/2;
+		r0 = r1-smallestCell;
 		
-		int segmente = 1;
+		int segmente = (int)Math.pow(alphabet.length, wordLength);
 		
-		BufferedImage img = new BufferedImage(w, h, BufferedImage.TYPE_4BYTE_ABGR);
+		img = new BufferedImage(w, h, BufferedImage.TYPE_4BYTE_ABGR);
 		Graphics2D g2D = (Graphics2D) img.getGraphics();
 		g2D.setBackground(Color.WHITE);
 		g2D.setColor(Color.BLACK);
@@ -181,15 +276,25 @@ public class GeneCode implements Serializable {
                   RenderingHints.VALUE_ANTIALIAS_ON );
 		g2D.setRenderingHint(RenderingHints.KEY_RENDERING,
                  RenderingHints.VALUE_RENDER_QUALITY );
+		
 		double arcStep =0;
-		for(int i=0;i < wordLength;i++){
-			g2D.setStroke(new BasicStroke((r1-r0)/50));
+		for(int i= wordLength;i > 0;i--){
+			
+			g2D.setColor(Color.black);
+			g2D.setStroke(new BasicStroke((r1-r0)/30));
 			g2D.drawOval(mx-r1, my-r1, r1*2, r1*2);
-			segmente *= alphabet.length;
+			
 			arcStep = Math.PI * 2f/segmente;
+			double arcDelta = 360./segmente;
+			
 			for(int j =0; j < segmente;j++){
 				double cos = Math.cos(j*arcStep);
 				double sin = Math.sin(j*arcStep);
+				
+				g2D.setColor(colors[j%alphabet.length]);
+
+				g2D.fill(new Arc2D.Double(mx-r1,my-r1,r1*2,r1*2,-j*arcDelta,-arcDelta,Arc2D.PIE));
+				g2D.setColor(Color.black);
 				
 				g2D.drawLine((int)(mx + r0*cos), (int)(my+ r0*sin),(int)(mx + r1*cos), (int)(my+ r1*sin));
 				
@@ -203,19 +308,34 @@ public class GeneCode implements Serializable {
 				int strW = fm.stringWidth(letter)/2; 
 				int strH = fm.getAscent()/2;
 				g2D.drawString(letter,mx -strW + (int) ((r0+(r1-r0)/2)*cos),my +strH + (int)((r0+(r1-r0)/2)*sin ));
-				if(i +1 == wordLength){
+				if(i  == wordLength){
 					String val = getValue(getCodonKeyFromGraph((j+0.5)*arcStep));
 					g2D.drawString(val,mx -strW + (int) ((r1+(r1-r0)/2)*cos),my +strH + (int)((r1+(r1-r0)/2)*sin ));
 				}
-				//g2D.drawArc(w/2, w/2, 200, 400, 0, (360*j)/segmente);
+				
 				
 			}
-			int tmp = r0;
-			r0 = r1;
-			r1 = r1+ (int)((float)(r1-tmp)/alphabet.length*(2-(float)i/wordLength));
+			int rd = r1-r0;
+			r1 = r0;
+			r0 = (int) (r0-rd*alphabet.length*((float)(i-1)/wordLength));
+			if(i-2 == 0)
+				r0 =r1/4;
+			segmente /= alphabet.length;
+			
 		}
 		
 		return img;
+	}
+	public BufferedImage markCodon(double angle){
+		angle %= Math.PI*2;
+		BufferedImage imgMarked = img.getSubimage(0, 0, img.getWidth(), img.getHeight());
+		double angleStep = Math.PI*2;
+		for(int i =0;i<wordLength;i++){
+			angleStep /= alphabet.length;
+			int index = (int)(angle/angleStep);
+			angle %= angleStep;
+		}
+		return imgMarked;
 	}
 	
 }

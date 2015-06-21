@@ -7,7 +7,11 @@ import java.awt.GridLayout;
 import java.awt.TextArea;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -19,11 +23,12 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
+import javax.swing.JTextField;
 import javax.swing.JTextPane;
 
 
 
-public class GeneticQuiz extends JFrame{
+public class GeneticQuiz extends JFrame implements MouseListener{
 	
 	
 	private DnaGenerator dnaGen = new DnaGenerator();
@@ -38,7 +43,12 @@ public class GeneticQuiz extends JFrame{
 	Integer[] lengthList = new Integer []{5,10,15,20,25,30};
 	String CBListe[] = {"DNA -> cDNA", "DNA -> mRNA",  "DNA -> Protein"};
 	
-	public GeneticQuiz() {
+	JTextField codonInfo;
+	ImagePanel imageCode;
+	GeneCode gc;
+	
+	public GeneticQuiz(){
+		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		
 		setSize(500, 400);
 		JPanel panel = new JPanel();
@@ -74,13 +84,26 @@ public class GeneticQuiz extends JFrame{
 		
 		
 		
-		GeneCode gc = new GeneCode("TEST","ATCG",3);
-		ImagePanel imageCode = new ImagePanel(gc.getCodeSun());
+		gc = new GeneCode("TEST","ATCG",3);
+		try {
+			gc = GeneCode.ReadCode("Standard.genecode");
+		
+		} catch (ClassNotFoundException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		imageCode = new ImagePanel(gc.getCodeSun());
+		imageCode.addMouseListener(this);
 		
 		configPanel.add(imageCode);
 		
 		
 		reverse = new JCheckBox("Reverse");
+		codonInfo = new JTextField(20);
+		codonInfo.setEditable(false);
 		
 		direrction = new JComboBox<String>(CBListe);
 		JLabel LabelLength = new JLabel("Length:");
@@ -125,6 +148,7 @@ public class GeneticQuiz extends JFrame{
 		optionsPanel.add(LabelLength);
 		optionsPanel.add(l);
 		optionsPanel.add(status);
+		optionsPanel.add(codonInfo);
 		
 		
 		
@@ -153,5 +177,49 @@ public class GeneticQuiz extends JFrame{
 			status.setForeground(Color.RED);
 			translTextSolve.setText(dnaGen.getSequence());
 		}
+	}
+
+	@Override
+	public void mouseClicked(MouseEvent e) {
+		if(e.getSource().equals(imageCode)){
+			double xm = imageCode.getWidth()/2;
+			double ym = imageCode.getHeight()/2;
+			double x = (e.getX()-xm);
+			double y = (e.getY()-ym)*xm/ym;
+			double angle = Math.atan(y/x);
+			if(x< 0){
+				angle += Math.PI;//// NICHT FERTIG
+			}
+			if(x>0 && y<0){
+				angle += Math.PI*2;
+			}
+			String key = gc.getCodonKeyFromGraph(angle);
+			codonInfo.setText(key + "=>" + gc.getValue(key));
+		}
+		
+	}
+
+	@Override
+	public void mousePressed(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseReleased(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseEntered(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseExited(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
 	}
 }

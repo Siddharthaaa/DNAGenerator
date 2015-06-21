@@ -1,7 +1,11 @@
 import java.util.Random;
 
 /** 
+<<<<<<< HEAD
 *Ein Programm für üben der genetiaschen Verfahren:
+=======
+*Ein Programm fÃ¼r Ã¼ben der genetiaschen Verfahren:
+>>>>>>> origin/master
 *Replication (DNA zu cDNA), Transcription(DNA zu mRNA), Translation(mRNA zu Protein).
 *
 *@author Abel Hodelin Hernandez
@@ -23,7 +27,11 @@ public class DnaGenerator
 	
 	/**
 	* Generiert die DNA-Sequenz
+<<<<<<< HEAD
 	*@param seqLeng: Länge der zu erzeugender DNA-Sequenz (Nukleotide oder Aminosäure). 
+=======
+	*@param seqLeng: LÃ¤nge der zu erzeugender DNA-Sequenz (Nukleotide oder AminosÃ¤ure). 
+>>>>>>> origin/master
 	*@param invert: Richtung der zu erzeugender DNA-Sequenz.
 	*@param typSeqToCheck: Welche Verfahren wird simuliert.
 	*
@@ -214,4 +222,8 @@ public class DnaGenerator
 		}
 		return seq;
 	}
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> origin/master

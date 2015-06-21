@@ -1,34 +1,31 @@
 ï»¿import java.io.FileNotFoundException;
+import java.io.IOException;
 
 import javax.swing.JDialog;
 
 
 public class TestGeneCode {
 
-	public static void main(String[] str){
+	public static void main(String[] str) throws ClassNotFoundException, IOException{
 		
 		
 		GeneCode gc = null;  ;// = new GeneCode();
 		
-		gc = new GeneCode("Test","AB",4);
-		System.out.println(gc.toString());
-		
-		gc.setCodon("BBBB", "Met");
-		System.out.println(gc.toString());
-		
-		
-		//Für DNACreator wichtige funktionen
-		gc.getName(); // Sring Bezeichnung (zb Mitochondrium)
-		gc.getCodonLength(); // int wortlänge, wie lang ein codon ist
-		gc.getAlphabet(); //char[] die verfügbaren buchstaben. wichtig für die generierung von zufallstrings
-
-		//Gencode aus einer Datei lesen
+		gc = new GeneCode();
 		try {
-			gc = GeneCode.ReadCode("default.genecode");
-		} catch (FileNotFoundException e) {
+			gc.SaveAs("TEST.genecode");
+		} catch (IOException e2) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			e2.printStackTrace();
 		}
+		
+		gc = GeneCode.ReadCode("TEST.genecode");
+		
+		
+		//Fï¿½r DNACreator wichtige funktionen
+		gc.getName(); // Sring Bezeichnung (zb Mitochondrium)
+		gc.getCodonLength(); // int wortlï¿½nge, wie lang ein codon ist
+		gc.getAlphabet(); //char[] die verfï¿½gbaren buchstaben. wichtig fï¿½r die generierung von zufallstrings
 		
 		
 		
@@ -40,16 +37,19 @@ public class TestGeneCode {
 		dialog.setGeneCode(gc);
 		
 		dialog.setModal(true);
-		//dialog.setVisible(true);
+		dialog.setVisible(true);
 		
 		GeneticQuiz gq = new GeneticQuiz();
 		gq.setVisible(true);
 
 		try {
 			gc = GeneCode.ReadCode("Default");
-		} catch (FileNotFoundException e1) {
+		} catch (IOException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 		
 		
