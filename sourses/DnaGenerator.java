@@ -2,9 +2,9 @@ import java.util.Random;
 
 /** 
 <<<<<<< HEAD
-*Ein Programm f�r �ben der genetiaschen Verfahren:
-=======
 *Ein Programm für üben der genetiaschen Verfahren:
+=======
+*Ein Programm fÃ¼r Ã¼ben der genetiaschen Verfahren:
 >>>>>>> origin/master
 *Replication (DNA zu cDNA), Transcription(DNA zu mRNA), Translation(mRNA zu Protein).
 *
@@ -28,9 +28,9 @@ public class DnaGenerator
 	/**
 	* Generiert die DNA-Sequenz
 <<<<<<< HEAD
-	*@param seqLeng: L�nge der zu erzeugender DNA-Sequenz (Nukleotide oder Aminos�ure). 
-=======
 	*@param seqLeng: Länge der zu erzeugender DNA-Sequenz (Nukleotide oder Aminosäure). 
+=======
+	*@param seqLeng: LÃ¤nge der zu erzeugender DNA-Sequenz (Nukleotide oder AminosÃ¤ure). 
 >>>>>>> origin/master
 	*@param invert: Richtung der zu erzeugender DNA-Sequenz.
 	*@param typSeqToCheck: Welche Verfahren wird simuliert.
@@ -161,7 +161,7 @@ public class DnaGenerator
 		/* Translation(mRNA zu Protein)*/
 		for(char c : mRNA.toCharArray())
 		{
-			codon += c; // Erzeugen der Codenen
+			codon += c; // Erzeugen der Codonen
 			
 			if(codon.length() == 3)
 			{
