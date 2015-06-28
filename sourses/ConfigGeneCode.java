@@ -1,14 +1,18 @@
 import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.FlowLayout;
-import java.awt.MenuBar;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Enumeration;
 
 import javax.swing.JButton;
+import javax.swing.JColorChooser;
 import javax.swing.JDialog;
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
@@ -19,23 +23,27 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
-import javax.swing.JTextPane;
 import javax.swing.ScrollPaneLayout;
-import javax.swing.border.EmptyBorder;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableModel;
 
 
 
-public class ConfigGeneCode extends JDialog implements ActionListener {
+public class ConfigGeneCode extends JDialog implements ActionListener,MouseListener {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private final JScrollPane contentPanel;
 	private JTable table;
 	GeneCode gc;
 	JButton okButton;
 	JTextField gcname_in;
 	JButton cancelButton;
+	JColorChooser colorChooser;
+	JPanel[] colorFields;
+	JPanel colorArea;
 	
 
 	/**
@@ -75,6 +83,10 @@ public class ConfigGeneCode extends JDialog implements ActionListener {
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			
+			colorArea = new JPanel();
+			buttonPane.setLayout(new FlowLayout());
+			getContentPane().add(colorArea,BorderLayout.NORTH);
+			
 			
 			JLabel gcname = new JLabel("Name:");
 			gcname.setEnabled(false);
@@ -98,6 +110,7 @@ public class ConfigGeneCode extends JDialog implements ActionListener {
 				
 				buttonPane.add(cancelButton);
 			}
+			
 		
 			
 			
@@ -113,7 +126,7 @@ public class ConfigGeneCode extends JDialog implements ActionListener {
 	boolean setGeneCode(GeneCode gc){
 		if(gc == null)
 			return false;
-		this.gc = gc.clone();
+		this.gc = gc;
 		table.setSize(gc.getSize(), 2);
 		DefaultTableModel tm = (DefaultTableModel) table.getModel();
 		tm.setRowCount(gc.getSize());
@@ -131,6 +144,16 @@ public class ConfigGeneCode extends JDialog implements ActionListener {
 			i++;
 			
 		}
+		colorArea.removeAll();
+		colorFields = new JPanel[gc.getColorsCount()];
+		for(i = 0;i<gc.getColorsCount();i++){
+			colorFields[i] = new JPanel();
+			colorFields[i].setPreferredSize(new Dimension(20, 20));
+			colorFields[i].addMouseListener(this);
+			colorFields[i].setBackground(gc.getColor(i));
+			colorArea.add(colorFields[i]);
+		}
+		repaint();
 		return true;
 		
 	}
@@ -187,7 +210,7 @@ public class ConfigGeneCode extends JDialog implements ActionListener {
 	        exit.addActionListener(new ActionListener() {
 	            @Override
 	            public void actionPerformed(ActionEvent event) {
-	                System.exit(0);
+	                dispose();
 	            }
 	        });
 
@@ -226,16 +249,10 @@ public class ConfigGeneCode extends JDialog implements ActionListener {
 			
 			setGeneCode(gc);
 			return gc;
-		} catch (FileNotFoundException e) {
+		} catch (ClassNotFoundException | IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		} 
 		return null;
 	}
 	
@@ -273,6 +290,13 @@ public class ConfigGeneCode extends JDialog implements ActionListener {
 		
 		 	            //System.out.println("Button pressed!");
 		 	        	readTable();
+		 	        	dispose();
+		 	       
+		 	        }
+		 	       if (action.equals("Cancel")) {
+		 	  		
+		 	            //System.out.println("Button pressed!");
+		 	        	dispose();
 		 	       
 		 	        }
 		
@@ -285,6 +309,54 @@ public class ConfigGeneCode extends JDialog implements ActionListener {
          	gc.setCodon(table.getValueAt(i, 0).toString(), table.getValueAt(i, 1).toString());
          }
          gc.setName(gcname_in.getText());
+         
+         for(int i = 0; i< colorFields.length;i++){
+        	 gc.setColor(i, colorFields[i].getBackground());
+         }
+         
+	}
+	public GeneCode getGeneCode(){
+		return gc;
+	}
+	
+	private void chooseColor(int index){
+		
+		Color c = JColorChooser.showDialog(this, "Buchstabenfarbe", gc.getColor(index));
+		if(c!=null)
+			colorFields[index].setBackground(c);
 	}
 
+	@Override
+	public void mouseClicked(MouseEvent e) {
+		for(int i = 0;i<colorFields.length;i++){
+			if(e.getSource() == colorFields[i]){
+				chooseColor(i);
+			}
+		}
+		
+	}
+
+	@Override
+	public void mousePressed(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseReleased(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseEntered(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseExited(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
 }

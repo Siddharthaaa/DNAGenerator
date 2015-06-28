@@ -25,7 +25,7 @@ public class NewGCDIalog extends JDialog {
 		
 		JLabel alphabet = new JLabel("Alphabet:");
 		JLabel wl = new JLabel("Word length:");
-		 at = new JTextField("AAA");
+		 at = new JTextField("ABC");
 		 lt = new JTextField("3");
 		
 		JButton okButton = new JButton("OK");

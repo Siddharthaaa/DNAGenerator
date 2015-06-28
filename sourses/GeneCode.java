@@ -39,15 +39,17 @@ public class GeneCode implements Serializable {
 	private char[] alphabet;
 	private int wordLength;
 	private BufferedImage img;
+	private boolean imgTooBig;
+	int smallestCell;
 	
 	private Hashtable<String, String> codons;
 	
 	//colors for created image
-	Color [] colors;
+	private Color [] colors;
 	
 	
 	public GeneCode(){
-		this("Default","ACGU",3);
+		this("Standard","ACGU",3);
 		setCodon("AUU","I"); //1
 		setCodon("AUC","I"); //2
 		setCodon("AUA","I");
@@ -120,13 +122,21 @@ public class GeneCode implements Serializable {
 		}
 		this.alphabet = alph.toCharArray();
 		
+		
+		
 		this.name = name;
 		wordLength = l;
+		
+
 		colors =  new Color[alphabet.length];
 		for(int i = 0;i<colors.length;i++){
 			float f = (float) (0.5f+0.5*((float)i/colors.length));
 			colors[i] = new Color(f,f,f);
 		}
+
+		
+		
+		
 		init("",0);
 	}
 	
@@ -140,6 +150,7 @@ public class GeneCode implements Serializable {
 		
 	}
 	
+	//fill Hashtable rekursive
 	private void init(String prefix, int position ){
 		if(wordLength>position){
 			for(int i=0;i<alphabet.length;i++){
@@ -154,6 +165,7 @@ public class GeneCode implements Serializable {
 	public boolean setCodon(String name, String value){
 		
 		if(codons.containsKey(name)){
+			img =null;
 			codons.put(name, value);
 			return true;
 		}
@@ -246,17 +258,31 @@ public class GeneCode implements Serializable {
 	
 	public BufferedImage getCodeSun(){
 		
-		int smallestCell = 30;
-		int BoundDistance = 40;
+		if(img !=null)
+			return img;
+		
+		smallestCell = 50;
+		int BoundDistance = 50;
 		int w = smallestCell;
 		int h = 0;
 		
+		//Abmessungen ausrechnen
+		//diese haengen vom alphabet 
 		for(int i = 0;i<wordLength;i++){
 			h += 2*w;
 			w *= alphabet.length/(1+(float)(i+1)/wordLength);
 		}
-		h+=30;
+		h+=2*BoundDistance;
 		w = h;
+		System.out.println("Bildbreite: "+ w);
+		
+		if(w>5000){
+			imgTooBig = true;
+			img = new BufferedImage(100, 100, BufferedImage.TYPE_4BYTE_ABGR);
+			img.getGraphics().setColor(Color.WHITE);
+			img.getGraphics().drawString("Bild ist zu Groﬂ", 10, 50);
+			return img;
+		}
 		
 		int mx= w/2;
 		int my= h/2;
@@ -269,9 +295,8 @@ public class GeneCode implements Serializable {
 		
 		img = new BufferedImage(w, h, BufferedImage.TYPE_4BYTE_ABGR);
 		Graphics2D g2D = (Graphics2D) img.getGraphics();
-		g2D.setBackground(Color.WHITE);
-		g2D.setColor(Color.BLACK);
 		
+		g2D.setColor(Color.BLACK);
 		g2D.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
                   RenderingHints.VALUE_ANTIALIAS_ON );
 		g2D.setRenderingHint(RenderingHints.KEY_RENDERING,
@@ -326,16 +351,33 @@ public class GeneCode implements Serializable {
 		
 		return img;
 	}
+	//TODO noch nicht fertig
 	public BufferedImage markCodon(double angle){
 		angle %= Math.PI*2;
 		BufferedImage imgMarked = img.getSubimage(0, 0, img.getWidth(), img.getHeight());
 		double angleStep = Math.PI*2;
 		for(int i =0;i<wordLength;i++){
 			angleStep /= alphabet.length;
-			int index = (int)(angle/angleStep);
 			angle %= angleStep;
 		}
 		return imgMarked;
 	}
-	
+
+	public Color getColor(int index) {
+		if(colors ==null)
+			return null;
+		return colors[index%colors.length];
+	}
+
+	public void setColor(int index, Color color) {
+		if(colors!=null){
+			colors[index%colors.length]=color;
+			img =null;
+		}
+	}
+	public int getColorsCount(){
+		if(colors == null)
+			return 0;
+		return colors.length;
+	}
 }

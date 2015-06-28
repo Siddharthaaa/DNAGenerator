@@ -16,6 +16,10 @@ class ImagePanel extends JPanel{
 		img = i;
 	}
 	
+	public void setImage(BufferedImage bi){
+		img = bi;
+	}
+	
 	@Override
 	protected void paintComponent(Graphics g) {
 		// TODO Auto-generated method stub
