@@ -10,15 +10,12 @@
 public class GeneticCode
 {
 	/**
-	* Translation(mRNA zu Protein)
+	* Translation (mRNA zu Protein)
 	*
 	*@param codon: 3 Buchstaben
 	*@param code: genetischer Code
 	*
-<<<<<<< HEAD
-	*@return amino: Aminosäure
-=======
-	*@return amino: AminosÃ¤ure
+	*@return amino: Aminos\u00E4ure
 >>>>>>> origin/master
 	*/
 	public String RNAToProtein(String codon, int code)

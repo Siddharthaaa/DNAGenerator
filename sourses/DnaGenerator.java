@@ -1,12 +1,9 @@
 import java.util.Random;
 
 /** 
-<<<<<<< HEAD
-*Ein Programm für üben der genetiaschen Verfahren:
-=======
-*Ein Programm fÃ¼r Ã¼ben der genetiaschen Verfahren:
->>>>>>> origin/master
-*Replication (DNA zu cDNA), Transcription(DNA zu mRNA), Translation(mRNA zu Protein).
+*Ein Programm f\u00FCr \u00DCben der genetiaschen Verfahren:
+
+*Replication (DNA zu cDNA), Transcription (DNA zu mRNA), Translation(mRNA zu Protein).
 *
 *@author Abel Hodelin Hernandez
 *@author Timur Horn
@@ -16,22 +13,18 @@ public class DnaGenerator
 {
 	
 	private Random random = new Random();
-	public String dnaGeneral; // generierte DNA-Sequenz 
+	public String dnaGeneral = "ACTG"; // generierte DNA-Sequenz 
 	public String cdnaGeneral; // cDNA
 	public String rnaGeneral; // mRNA
 	public String proteinGeneral; // Protein
-	private boolean senseGeneral; // Richtung zum lesen
+	private boolean senseGeneral = true; // Richtung zum lesen
 	private int seqTypGeneral; // Verfahren
 	private int geneCodeGeneral; // genetiche Code
 
 	
 	/**
 	* Generiert die DNA-Sequenz
-<<<<<<< HEAD
-	*@param seqLeng: Länge der zu erzeugender DNA-Sequenz (Nukleotide oder Aminosäure). 
-=======
-	*@param seqLeng: LÃ¤nge der zu erzeugender DNA-Sequenz (Nukleotide oder AminosÃ¤ure). 
->>>>>>> origin/master
+	*@param seqLeng: L\u00E4nge der zu erzeugender DNA-Sequenz (Nukleotide oder Aminos\u00E4ure).
 	*@param invert: Richtung der zu erzeugender DNA-Sequenz.
 	*@param typSeqToCheck: Welche Verfahren wird simuliert.
 	*
@@ -73,7 +66,7 @@ public class DnaGenerator
 	/**
 	* Invertiert die XNA-Sequenz
 	*
-	*@param dna: XNA-Sequenz umzukehren
+	*@param dna: XNA-Sequenz um zu invertieren
 	*@return dna: umgekehrte XNA-Sequenz
 	*/
 	public String invertSequence(String dna)
@@ -222,8 +215,5 @@ public class DnaGenerator
 		}
 		return seq;
 	}
-<<<<<<< HEAD
+
 }
-=======
-}
->>>>>>> origin/master
