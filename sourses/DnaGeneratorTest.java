@@ -1,4 +1,5 @@
 import static org.junit.Assert.*;
+
 import java.util.*;
 
 import org.junit.Test;
@@ -70,5 +71,83 @@ public class DnaGeneratorTest {
 		
 		//Translation von AUUAUCAUACUUCUCCUACUGUUAUUGGUUGUCGUAGUGUUUUUCAUGUGUUGCGCUGCCGCAGCGGGUGGCGGAGGGCCUCCCCCACCGACUACCACAACGUCUUCCUCAUCGAGUAGCUAUUACUGGCAACAGAAUAACCAUCACGAAGAGGAUGACAAAAAGCGUCGCCGACGGAGAAGGUAAUAGUGA
 		assertEquals(protein,"IIILLLLLLVVVVFFMCCAAAAGGGGPPPPTTTTSSSSSSYYWQQNNHHEEDDKKRRRRRR***");
+	}
+	
+	@Test
+	// check query sequece
+	public void checkSequenceDNATest1()
+	{
+		String querydna = "ATTATCATACTTCTCCTACTGTTATTGGTTGTCGTAGTGTTTTTCATGTGTTGCGCTGCCGCAGCGGGTGGCGGAGGGCCTCCCCCACCGACTACCACAACGTCTTCCTCATCGAGTAGCTATTACTGGCAACAGAATAACCATCACGAAGAGGATGACAAAAAGCGTCGCCGACGGAGAAGGTAATAGTGA";
+				
+		dnaGenerator.getSeqTyp(1);
+		boolean checkdna = dnaGenerator.checkSequence(querydna);
+		
+		// check dna true
+		assertEquals(checkdna, true);
+	}
+	
+	@Test
+	// check query sequece
+	public void checkSequenceDNATest2()
+	{
+		String queryDna = "TTATCATACTTCTCCTACTGTTATTGGTTGTCGTAGTGTTTTTCATGTGTTGCGCTGCCGCAGCGGGTGGCGGAGGGCCTCCCCCACCGACTACCACAACGTCTTCCTCATCGAGTAGCTATTACTGGCAACAGAATAACCATCACGAAGAGGATGACAAAAAGCGTCGCCGACGGAGAAGGTAATAGTGA";
+				
+		dnaGenerator.getSeqTyp(1);
+		boolean checkDna = dnaGenerator.checkSequence(queryDna);
+		
+		// check dna false
+		assertEquals(checkDna, false);
+	}
+	
+	@Test
+	// check query sequece
+	public void checkSequenceRNATest1()
+	{
+		String queryRna = "AUUAUCAUACUUCUCCUACUGUUAUUGGUUGUCGUAGUGUUUUUCAUGUGUUGCGCUGCCGCAGCGGGUGGCGGAGGGCCUCCCCCACCGACUACCACAACGUCUUCCUCAUCGAGUAGCUAUUACUGGCAACAGAAUAACCAUCACGAAGAGGAUGACAAAAAGCGUCGCCGACGGAGAAGGUAAUAGUGA";
+		
+		dnaGenerator.getSeqTyp(2);
+		boolean checkRna = dnaGenerator.checkSequence(queryRna);
+		
+		// check rna true
+		assertEquals(checkRna, true);
+	}
+	
+	@Test
+	// check query sequece
+	public void checkSequenceRNATest2()
+	{
+		String queryRna = "UUAUCAUACUUCUCCUACUGUUAUUGGUUGUCGUAGUGUUUUUCAUGUGUUGCGCUGCCGCAGCGGGUGGCGGAGGGCCUCCCCCACCGACUACCACAACGUCUUCCUCAUCGAGUAGCUAUUACUGGCAACAGAAUAACCAUCACGAAGAGGAUGACAAAAAGCGUCGCCGACGGAGAAGGUAAUAGUGA";
+		
+		dnaGenerator.getSeqTyp(2);
+		boolean checkRna = dnaGenerator.checkSequence(queryRna);
+		
+		// check rna false
+		assertEquals(checkRna, false);
+	}
+	
+	@Test
+	// check query sequece
+	public void checkSequenceProteinTest1()
+	{
+		String queryProtein = "IIILLLLLLVVVVFFMCCAAAAGGGGPPPPTTTTSSSSSSYYWQQNNHHEEDDKKRRRRRR***";
+		
+		dnaGenerator.getSeqTyp(3);
+		boolean checkProtein = dnaGenerator.checkSequence(queryProtein);
+		
+		// check protein true
+		assertEquals(checkProtein, true);
+	}
+	
+	@Test
+	// check query sequece
+	public void checkSequenceProteinTest2()
+	{
+		String queryProtein = "IILLLLLLVVVVFFMCCAAAAGGGGPPPPTTTTSSSSSSYYWQQNNHHEEDDKKRRRRRR***";
+		
+		dnaGenerator.getSeqTyp(3);
+		boolean checkProtein = dnaGenerator.checkSequence(queryProtein);
+		
+		// check protein false
+		assertEquals(checkProtein, false);
 	}
 }

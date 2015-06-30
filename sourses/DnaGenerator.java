@@ -14,12 +14,12 @@ public class DnaGenerator
 	
 	private Random random = new Random();
 	public String dnaGeneral = "TAATAGTATGAAGAGGATGACAATAACCAACAGCATCACAAAAAGTACACAACGCGACGGCGTCGCCCACCGCCTCCCGGAGGGGGTGGCTGATGGTGTTGCAGAAGGAGTAGCTCATCGATAATGACCGTTGTCTTATTGGTAGTGCTTCTCCTACTGTTTTTCGCAGCGGCTGCCTCTTCCATTATCACT"; // generierte DNA-Sequenz 
-	public String cdnaGeneral; // cDNA
-	public String rnaGeneral; // mRNA
-	public String proteinGeneral; // Protein
+	public String cdnaGeneral = "ATTATCATACTTCTCCTACTGTTATTGGTTGTCGTAGTGTTTTTCATGTGTTGCGCTGCCGCAGCGGGTGGCGGAGGGCCTCCCCCACCGACTACCACAACGTCTTCCTCATCGAGTAGCTATTACTGGCAACAGAATAACCATCACGAAGAGGATGACAAAAAGCGTCGCCGACGGAGAAGGTAATAGTGA"; // cDNA
+	public String rnaGeneral = "AUUAUCAUACUUCUCCUACUGUUAUUGGUUGUCGUAGUGUUUUUCAUGUGUUGCGCUGCCGCAGCGGGUGGCGGAGGGCCUCCCCCACCGACUACCACAACGUCUUCCUCAUCGAGUAGCUAUUACUGGCAACAGAAUAACCAUCACGAAGAGGAUGACAAAAAGCGUCGCCGACGGAGAAGGUAAUAGUGA"; // mRNA
+	public String proteinGeneral = "IIILLLLLLVVVVFFMCCAAAAGGGGPPPPTTTTSSSSSSYYWQQNNHHEEDDKKRRRRRR***"; // Protein
 	private boolean senseGeneral = true; // Richtung zum lesen
-	private int seqTypGeneral; // Verfahren
-	private int geneCodeGeneral; // genetiche Code
+	private int seqTypGeneral = 1; // Verfahren
+	private int geneCodeGeneral = 1; // genetiche Code
 
 	
 	/**
@@ -80,6 +80,10 @@ public class DnaGenerator
 		geneCodeGeneral = geneCode;
 	}
 	
+	public void getSeqTyp(int typ)
+	{
+		seqTypGeneral = typ;
+	}
 	
 	/**
 	* Replication (DNA zu cDNA)
