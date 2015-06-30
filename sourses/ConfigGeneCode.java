@@ -1,7 +1,9 @@
+import java.awt.AlphaComposite;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -42,8 +44,10 @@ public class ConfigGeneCode extends JDialog implements ActionListener,MouseListe
 	JTextField gcname_in;
 	JButton cancelButton;
 	JColorChooser colorChooser;
-	JPanel[] colorFields;
-	JPanel colorArea;
+	JLabel[] colorFields;
+	JTextField[] complementsFields;
+	JPanel[] letterAddInfoFields;
+	JPanel alphabetAddInfoArea;
 	
 
 	/**
@@ -83,9 +87,9 @@ public class ConfigGeneCode extends JDialog implements ActionListener,MouseListe
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			
-			colorArea = new JPanel();
+			alphabetAddInfoArea = new JPanel();
 			buttonPane.setLayout(new FlowLayout());
-			getContentPane().add(colorArea,BorderLayout.NORTH);
+			getContentPane().add(alphabetAddInfoArea,BorderLayout.NORTH);
 			
 			
 			JLabel gcname = new JLabel("Name:");
@@ -144,15 +148,27 @@ public class ConfigGeneCode extends JDialog implements ActionListener,MouseListe
 			i++;
 			
 		}
-		colorArea.removeAll();
-		colorFields = new JPanel[gc.getColorsCount()];
-		for(i = 0;i<gc.getColorsCount();i++){
-			colorFields[i] = new JPanel();
-			colorFields[i].setPreferredSize(new Dimension(20, 20));
+		alphabetAddInfoArea.removeAll();
+		alphabetAddInfoArea.setLayout(new FlowLayout());
+		colorFields = new JLabel[gc.getAlphabet().length];
+		complementsFields = new JTextField[gc.getAlphabet().length];
+		letterAddInfoFields = new JPanel[gc.getAlphabet().length];
+		for(i = 0;i<gc.getAlphabet().length;i++){
+			colorFields[i] = new JLabel(gc.getAlphabet()[i]+"",JLabel.CENTER);
 			colorFields[i].addMouseListener(this);
 			colorFields[i].setBackground(gc.getColor(i));
-			colorArea.add(colorFields[i]);
+			colorFields[i].setOpaque(true);
+			
+			complementsFields[i] = new JTextField(gc.getComplement(gc.getAlphabet()[i] +""));
+			
+			letterAddInfoFields[i] = new JPanel(new GridLayout(2, 1));
+			letterAddInfoFields[i].add(colorFields[i]);
+			letterAddInfoFields[i].add(complementsFields[i]);
+			
+			
+			alphabetAddInfoArea.add(letterAddInfoFields[i]);
 		}
+		alphabetAddInfoArea.revalidate();
 		repaint();
 		return true;
 		
@@ -312,6 +328,7 @@ public class ConfigGeneCode extends JDialog implements ActionListener,MouseListe
          
          for(int i = 0; i< colorFields.length;i++){
         	 gc.setColor(i, colorFields[i].getBackground());
+        	 gc.setComplement(colorFields[i].getText(), complementsFields[i].getText());
          }
          
 	}

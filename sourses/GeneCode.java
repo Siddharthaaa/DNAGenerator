@@ -40,9 +40,14 @@ public class GeneCode implements Serializable {
 	private int wordLength;
 	private BufferedImage img;
 	private boolean imgTooBig;
-	int smallestCell;
+	private int smallestCell;
 	
 	private Hashtable<String, String> codons;
+	private Hashtable<String, String> complements;
+	//
+	private GeneCode nextGeneCode;
+	
+	private boolean reverseComplement = false;
 	
 	//colors for created image
 	private Color [] colors;
@@ -114,11 +119,14 @@ public class GeneCode implements Serializable {
 	public GeneCode(String name, String alph, int l){
 		
 		codons = new Hashtable<String, String>();
+		complements = new Hashtable<String, String>();
 		this.alphabet = alph.toCharArray();
 		alph="";
 		for(char c: alphabet){
-			if(!alph.contains(c + ""))
+			if(!alph.contains(c + "")){
 				alph+=c;
+				complements.put(c+"", c+"");
+			}
 		}
 		this.alphabet = alph.toCharArray();
 		
@@ -147,6 +155,7 @@ public class GeneCode implements Serializable {
 		codons = (Hashtable<String, String>) g.codons.clone();
 		name = g.name;
 		wordLength = g.wordLength;
+		complements = (Hashtable<String, String>) g.complements.clone();
 		
 	}
 	
@@ -171,6 +180,20 @@ public class GeneCode implements Serializable {
 		}
 		return false;
 	}
+	public boolean setComplement(String name, String value){
+		
+		if(complements.containsKey(name)){
+			img =null;
+			complements.put(name, value);
+			return true;
+		}
+		return false;
+	}
+	public String getComplement(String letter) {
+		return complements.get(letter);
+	}
+	
+	
 	
 	boolean SaveAs(String FileName) throws IOException{
 		
@@ -229,7 +252,7 @@ public class GeneCode implements Serializable {
 	}
 	
 	public char[] getAlphabet(){
-		return alphabet;
+		return alphabet.clone();
 	}
 
 	public void setName(String text) {
@@ -380,4 +403,18 @@ public class GeneCode implements Serializable {
 			return 0;
 		return colors.length;
 	}
+	
+	public GeneCode getNextCode(){
+		return nextGeneCode;
+	}
+	
+	public boolean  setNextCode(GeneCode genc){
+		
+		if(genc == null)
+			return false;
+		nextGeneCode = genc.clone();
+		return true;
+	}
+
+	
 }

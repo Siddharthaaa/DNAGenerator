@@ -1,3 +1,4 @@
+import java.awt.BorderLayout;
 import java.awt.Checkbox;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -12,11 +13,13 @@ import java.awt.event.ItemListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
+import java.awt.image.ImageConsumer;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
@@ -33,7 +36,7 @@ import javax.swing.JTextPane;
 
 
 
-public class GeneticQuiz extends JFrame implements MouseListener,ItemListener{
+public class GeneticQuiz extends JFrame implements MouseListener,ItemListener,ActionListener{
 	
 	
 	private DnaGenerator dnaGen = new DnaGenerator();
@@ -43,6 +46,7 @@ public class GeneticQuiz extends JFrame implements MouseListener,ItemListener{
 	JComboBox<Integer> l;
 	JComboBox<String> codeSelectionCB;
 	JCheckBox complCB;
+	JCheckBox showImageCB;
 	JTextPane translText;
 	JTextPane translTextSolve;
 	JButton configGC;
@@ -52,9 +56,16 @@ public class GeneticQuiz extends JFrame implements MouseListener,ItemListener{
 	ArrayList<GeneCode> gencodes;
 	
 	JTextField codonInfo;
+	JPanel imagePanel;
+	//Panel, die kleinen Bilder der nextCodes zeigt
+	JPanel subCodesPanel;
 	ImagePanel imageCodeSun;
+	JButton[] imageCodeSunSubs;
+	ArrayList<ImagePanel> subImagesButtons;
 	//aktueller Gene code
-	GeneCode gc;
+	GeneCode currentGC;
+	GeneCode choosenGC;
+	boolean newCodechosen;
 	
 	public GeneticQuiz(){
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
@@ -72,8 +83,8 @@ public class GeneticQuiz extends JFrame implements MouseListener,ItemListener{
 		JPanel inOutPanel = new JPanel(new GridLayout(2,2,10,10));
 		JPanel ButtonPanel1 = new JPanel(new GridLayout(2,1,5,5));
 		JPanel ButtonPanel2 = new JPanel(new GridLayout(2,1,5,5));
-		JLabel code = new JLabel("Code:");
-		JLabel translation = new JLabel("Translation");
+		JLabel code = new JLabel("Generated DNA");
+		JLabel translation = new JLabel("Query sequence");
 		status = new JLabel("            ");
 		
 		codeText = new JTextPane();
@@ -99,13 +110,26 @@ public class GeneticQuiz extends JFrame implements MouseListener,ItemListener{
 		
 		
 		imageCodeSun = new ImagePanel();
+		imagePanel = new JPanel(new BorderLayout());
+		imagePanel.add(imageCodeSun,BorderLayout.CENTER);
+		
+		
+		subCodesPanel = new JPanel();
+		subCodesPanel.setLayout(new FlowLayout(FlowLayout.LEFT));
+		
+		imagePanel.add(subCodesPanel,BorderLayout.SOUTH);
+		
 		imageCodeSun.addMouseListener(this);
+		showImageCB = new JCheckBox("Hint");
+		showImageCB.addActionListener(this);
+		imagePanel.add(showImageCB,BorderLayout.NORTH);
+		configPanel.add(imagePanel);
 		
-		configPanel.add(imageCodeSun);
+		
+		complCB = new JCheckBox("Reverse");
 		
 		
-		complCB = new JCheckBox("complement Strand");
-		codonInfo = new JTextField(20);
+		codonInfo = new JTextField(15);
 		codonInfo.setEditable(false);
 		
 		codeSelectionCB = new JComboBox<String>();
@@ -117,7 +141,7 @@ public class GeneticQuiz extends JFrame implements MouseListener,ItemListener{
 		l = new JComboBox<Integer>(lengthList);
 		JLabel LabelTrDirection = new JLabel("Translation direction:");
 		
-		JButton createCode = new JButton("Create");
+		JButton createCode = new JButton("Create DNA");
 		createCode.addActionListener(new ActionListener() {
 			
 			@Override
@@ -160,7 +184,7 @@ public class GeneticQuiz extends JFrame implements MouseListener,ItemListener{
 		inOutPanel.add(translTextPanel);
 		
 		optionsPanel.add(complCB);
-		optionsPanel.add(LabelTrDirection);
+		//optionsPanel.add(LabelTrDirection);
 		optionsPanel.add(codeSelectionCB);
 		optionsPanel.add(LabelLength);
 		optionsPanel.add(l);
@@ -187,14 +211,13 @@ public class GeneticQuiz extends JFrame implements MouseListener,ItemListener{
 	protected void configurateGeneCode() {
 		ConfigGeneCode dialog = new ConfigGeneCode();
 		dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-		dialog.setGeneCode(gc);
+		dialog.setGeneCode(currentGC);
 		dialog.setModal(true);
 		dialog.setVisible(true);
-		if(gc != dialog.getGeneCode()){
+		if(currentGC != dialog.getGeneCode()){
 			addGeneCode(dialog.getGeneCode());
 		}
-		imageCodeSun.setImage(gc.getCodeSun());
-		imageCodeSun.repaint();
+		updateView();
 		codeSelectionCB.repaint();
 		
 	}
@@ -222,21 +245,30 @@ public class GeneticQuiz extends JFrame implements MouseListener,ItemListener{
 	private void createStandardCodes(){
 		
 		
-		GeneCode g = new GeneCode("DNA->cDNA", "ATCG", 1);
+		GeneCode g = new GeneCode("DNA to cDNA", "ATCG", 1);
 		g.setCodon("A", "T");
 		g.setCodon("T", "A");
 		g.setCodon("G", "C");
 		g.setCodon("C", "G");
+		g.setComplement("A", "T");
+		g.setComplement("T", "A");
+		g.setComplement("G", "C");
+		g.setComplement("C", "G");
 		gencodes.add(g);
 		
-		g = new GeneCode("DNA->RNA","ATCG",1);
+		
+		g= new GeneCode(g);
+		
 		g.setCodon("A", "U");
-		g.setCodon("T", "A");
-		g.setCodon("G", "C");
-		g.setCodon("C", "G");
-		gencodes.add(g);
+		g.setName("DNA to RNA");
 		
-		gencodes.add(new GeneCode());
+		gencodes.add(g);
+		g= new GeneCode(g);
+		
+		g.setNextCode(new GeneCode());
+		g.setName("DNA to Protein(Standard)");
+		
+		gencodes.add(g);
 	}
 	
 	private void readCodeFiles(File dir){
@@ -271,8 +303,21 @@ public class GeneticQuiz extends JFrame implements MouseListener,ItemListener{
 			if(x>0 && y<0){
 				angle += Math.PI*2;
 			}
-			String key = gc.getCodonKeyFromGraph(angle);
-			codonInfo.setText(key + "=>" + gc.getValue(key));
+			String key = currentGC.getCodonKeyFromGraph(angle);
+			codonInfo.setText(key + "=>" + currentGC.getValue(key));
+		}
+		
+		if(subImagesButtons != null){
+			
+			GeneCode g = choosenGC;
+			for(int i =0;i<subImagesButtons.size();i++){
+				
+				if(e.getSource() == subImagesButtons.get(i)){
+					currentGC = g;
+					updateView();
+				}
+				g = g.getNextCode();
+			}
 		}
 		
 	}
@@ -308,10 +353,49 @@ public class GeneticQuiz extends JFrame implements MouseListener,ItemListener{
 
 	@Override
 	public void itemStateChanged(ItemEvent e) {
-		gc = gencodes.get(codeSelectionCB.getSelectedIndex());
-		imageCodeSun.setImage(gc.getCodeSun());
+		newCodechosen = true;
+		currentGC = gencodes.get(codeSelectionCB.getSelectedIndex());
+		choosenGC = currentGC;
+		System.out.println("item Event ausgelöst");
+		updateView();
+	}
+	
+	private void updateView(){
+		imageCodeSun.setImage(null);
+		if(showImageCB.isSelected())
+			imageCodeSun.setImage(currentGC.getCodeSun());
 		imageCodeSun.repaint();
+		
+		
+		if(newCodechosen ){
+			newCodechosen = false;
+			subCodesPanel.removeAll();
+			subImagesButtons = new ArrayList<ImagePanel>();
+			GeneCode g = choosenGC;
+			if(g.getNextCode() != null)
+			while(g!=null){
+				ImagePanel b = new ImagePanel();
+				b.setPreferredSize(new Dimension(40,40));
+				b.setImage(g.getCodeSun());
+				subImagesButtons.add(b);
+				b.addMouseListener(this);
+				
+				subCodesPanel.add(b);
+				g = g.getNextCode();
+			}
+			subCodesPanel.revalidate();
+			subCodesPanel.repaint();
+		}
+		imagePanel.revalidate();
+		imagePanel.repaint();
+	}
 
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		if(e.getSource() == showImageCB){
+			updateView();
+		}
 		
 	}
+	
 }

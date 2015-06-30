@@ -1,11 +1,10 @@
-﻿import java.io.IOException;
-
+﻿
 import javax.swing.JDialog;
 
 
 public class TestGeneCode {
 
-	public static void main(String[] str) throws ClassNotFoundException, IOException{
+	public static void main(String[] str) throws ClassNotFoundException{
 		
 		
 		GeneCode gc = null;  ;// = new GeneCode();
