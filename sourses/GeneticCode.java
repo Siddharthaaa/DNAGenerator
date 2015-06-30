@@ -16,7 +16,6 @@ public class GeneticCode
 	*@param code: genetischer Code
 	*
 	*@return amino: Aminos\u00E4ure
->>>>>>> origin/master
 	*/
 	public String RNAToProtein(String codon, int code)
 	{

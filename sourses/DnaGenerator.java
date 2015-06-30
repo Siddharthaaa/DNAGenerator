@@ -13,7 +13,7 @@ public class DnaGenerator
 {
 	
 	private Random random = new Random();
-	public String dnaGeneral = "ACTG"; // generierte DNA-Sequenz 
+	public String dnaGeneral = "TAATAGTATGAAGAGGATGACAATAACCAACAGCATCACAAAAAGTACACAACGCGACGGCGTCGCCCACCGCCTCCCGGAGGGGGTGGCTGATGGTGTTGCAGAAGGAGTAGCTCATCGATAATGACCGTTGTCTTATTGGTAGTGCTTCTCCTACTGTTTTTCGCAGCGGCTGCCTCTTCCATTATCACT"; // generierte DNA-Sequenz 
 	public String cdnaGeneral; // cDNA
 	public String rnaGeneral; // mRNA
 	public String proteinGeneral; // Protein
