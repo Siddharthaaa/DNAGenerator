@@ -20,7 +20,13 @@ public class DnaGenerator
 	private boolean senseGeneral = true; // Richtung zum lesen
 	private int seqTypGeneral = 1; // Verfahren
 	private int geneCodeGeneral = 1; // genetiche Code
-
+	
+	
+	//Fuer die neue Schnittstelle
+	private GeneCode gCode; //actueller Gencode
+	private String crSeq=""; // erzeugte Sequenz
+	private String translChain;// Uebersetzung der erzeugten Sequenz 
+	private String translEnd =""; //die Endsequenz der Uebersetzung
 	
 	/**
 	* Generiert die DNA-Sequenz
@@ -218,6 +224,85 @@ public class DnaGenerator
 				break;
 		}
 		return seq;
+	}
+	
+	/**
+	*Erzeugt eine Zufaellige Sequenz anhand vom geneCode
+	*@param length: Laenge der sequenz nach dem Uebersetzen der zu erzeugenden Sequenz
+	*@param geneCode: der fuer die Erzeugung verwendete Code
+	*@return zufaellige Sequenz
+	*/
+	public String generateDNA_new(int length, GeneCode geneCode) {
+		if(geneCode == null)
+			return "";
+		gCode = geneCode;
+		//length of a codon 
+		int l = length;
+		//calculate length
+		GeneCode g = geneCode;
+		//Vekettung von Codes beachten
+		while(g!= null){
+			l *= g.getCodonLength();
+			g= g.getNextCode();
+		}
+		
+		Random r = new Random(System.currentTimeMillis());
+		crSeq="";
+		char[] alphabet = geneCode.getAlphabet();
+		//zufallsString aus dem Alphabet erzeugen
+		for(int i = 0; i<l;i++){
+			crSeq += alphabet[r.nextInt(alphabet.length)];
+		}
+		return crSeq;
+	}
+	/**
+	*Prueft, ob die eingabe mit der Uebersetzung uebereinstimmt
+	*@param querySequence: vom User vorgeschlagene Seq
+	*@param reverse: ob es sich um eine invertierte Sequens handelt
+	*@return true wenn die Übersetzung richtig ist
+	*/
+	
+	public boolean checkSequence_new(String querySequence, boolean reverse) {
+		
+		
+		if(reverse)
+			translChain = translateCode(invertSequence(crSeq), gCode);
+		else
+			translChain = translateCode(crSeq,gCode);
+		
+		return translEnd.equalsIgnoreCase(querySequence);
+		
+	}
+	/**
+	*Prueft, ob die eingabe mit der Uebersetzung uebereinstimmt
+	*@return Alle entstandenen Translationen mit "\n" getrennt
+	*/
+
+	public String getSequence_new() {
+		return translChain;
+	}
+	
+	
+	/**
+	*Eine rekursive Funktion, die eine Sequenz anhand eines Codes uebersetzt
+	*@param seq: die zu uebersetzende Sequenz
+	*@param gc: der zu verwendende Code
+	*@return Alle entstandenen Translationen mit "\n" getrennt
+	*/
+	private String translateCode(String seq, GeneCode gc){
+		if(gc==null)
+			return "";
+		String trans = "";
+		int frame = gc.getCodonLength();
+		for(int i = 0; i<seq.length();i+=frame){
+			trans += gc.getValue(seq.substring(i, i+frame));
+		}
+		translEnd = trans;
+		if(gc.getNextCode() != null){
+			//Rekursion
+			trans += "\n" + translateCode(trans, gc.getNextCode());;
+		}
+		return trans;
 	}
 
 }

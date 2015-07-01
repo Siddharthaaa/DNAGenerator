@@ -31,9 +31,8 @@ public class TestGeneCode {
 		*/
 		GeneticQuiz gq = new GeneticQuiz();
 		gq.setVisible(true);
+		gq.setSize(1100, 800);
 
-		
-		
 		
 	
 		//System.out.println(gc.toString());

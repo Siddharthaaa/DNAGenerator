@@ -217,8 +217,11 @@ public class GeneCode implements Serializable {
 	}
 	
 	public String getValue(String codon){
-		
-		return codons.get(codon);
+		String s =  codons.get(codon);
+		if(s!=null)
+		return s;
+		return "";
+			
 	}
 	
 	public int getSize(){

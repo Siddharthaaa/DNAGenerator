@@ -19,6 +19,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import javax.sound.sampled.ReverbType;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -50,7 +51,7 @@ public class GeneticQuiz extends JFrame implements MouseListener,ItemListener,Ac
 	JTextPane translText;
 	JTextPane translTextSolve;
 	JButton configGC;
-	Integer[] lengthList = new Integer []{5,10,15,20,25,30};
+	Integer[] lengthList = new Integer []{1,2,3,4,5,10,15,20,25,30};
 	
 	
 	ArrayList<GeneCode> gencodes;
@@ -93,6 +94,7 @@ public class GeneticQuiz extends JFrame implements MouseListener,ItemListener,Ac
 		translText = new JTextPane();
 		JScrollPane translTextScrollPane = new JScrollPane(translText);
 		translTextSolve = new JTextPane();
+		translTextSolve.setEditable(false);
 		JScrollPane translTextSolveScrollPane = new JScrollPane(translTextSolve);
 		
 		JPanel translTextPanel = new JPanel(new GridLayout(2,1));
@@ -225,20 +227,23 @@ public class GeneticQuiz extends JFrame implements MouseListener,ItemListener,Ac
 	protected void createStringToTranslate() {
 		// TODO Auto-generated method stub
 		
-		codeText.setText(dnaGen.generateDNA(l.getItemAt(l.getSelectedIndex()),
-						complCB.isSelected(), codeSelectionCB.getSelectedIndex()+1));
+		//codeText.setText(dnaGen.generateDNA(l.getItemAt(l.getSelectedIndex()),
+		//				complCB.isSelected(), codeSelectionCB.getSelectedIndex()+1));
+		
+		codeText.setText(dnaGen.generateDNA_new(l.getItemAt(l.getSelectedIndex()),
+				choosenGC));
 	}
 	
 	protected void evaluate() {
 		// TODO Auto-generated method stub
-		if(dnaGen.checkSequence(translText.getText())){
+		if(dnaGen.checkSequence_new(translText.getText(),complCB.isSelected())){
 			status.setText("Gratulation!!!");
 			status.setForeground(Color.GREEN);
 		}
 		else{
 			status.setText("FALSCH");
 			status.setForeground(Color.RED);
-			translTextSolve.setText(dnaGen.getSequence());
+			translTextSolve.setText(dnaGen.getSequence_new());
 		}
 	}
 	
