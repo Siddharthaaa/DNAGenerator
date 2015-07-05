@@ -1,8 +1,6 @@
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
-import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -12,7 +10,6 @@ import java.io.ObjectOutput;
 import java.io.ObjectOutputStream;
 import java.io.OutputStream;
 import java.io.Serializable;
-import java.util.Collection;
 import java.util.Enumeration;
 import java.util.Hashtable;
 import java.awt.BasicStroke;
@@ -23,36 +20,44 @@ import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 import java.awt.geom.Arc2D;
 import java.awt.image.BufferedImage;
-import java.beans.XMLDecoder;
-import java.beans.XMLEncoder;
+/** 
+*Jedes Objekt der Klasse repräsentiert
+*einen Code, der alle möglichlichen Codons enthält.
+*Codons sind Wörter fester Länge über dem Alphabet
+*
+*@author Abel Hodelin Hernandez
+*@author Timur Horn
+*@version 1.0
+*/
 
-import javax.lang.model.element.Element;
-
-import org.omg.CORBA.CharSeqHolder;
-
-
-public class GeneCode implements Serializable {
+public class GeneCode implements Serializable,Cloneable {
 	
 	public final static String FILEEXTENTION = ".genecode";
 	
 	private String name;
 	private char[] alphabet;
 	private int wordLength;
+	//referenz für das erzeugete Bild
 	private BufferedImage img;
-	private boolean imgTooBig;
+	//Bestimmt indirekt die Auflösung des Bildes
+	//Breite der kleinsten Zelle im Bild, als des Buchstaben am Ende des Wortes
 	private int smallestCell;
 	
+	//enthält alle Codons
 	private Hashtable<String, String> codons;
+	//Jeder Buchstabe des Alphabets kann komplementären Buchstaben haben
+	//Analog zu DNS: complement strand
 	private Hashtable<String, String> complements;
-	//
+	//for code chaining 
 	private GeneCode nextGeneCode;
-	
-	private boolean reverseComplement = false;
 	
 	//colors for created image
 	private Color [] colors;
 	
-	
+	/**
+	* Erzeugt den Standard-Code von RNA nach Protein
+	* Alphabet {A,C,G,U}
+	*/
 	public GeneCode(){
 		this("Standard","ACGU",3);
 		setCodon("AUU","I"); //1
@@ -115,7 +120,15 @@ public class GeneCode implements Serializable {
 		setCodon("CGA","R"); //63
 		setCodon("CGG","R"); //64
 	}
-	
+	/**
+	* Erzeugt einen neuen code
+	* der Länge l über dem alpahbet alph
+	* Alle Codons werden erzeugt und mit Defaultvalue belegt
+	*@param name: Bezeichnung des Codes
+	*@param alph: das benutzte Alphabet. zB ACGT
+	*@param l: Codonlänge
+	*
+	*/
 	public GeneCode(String name, String alph, int l){
 		
 		codons = new Hashtable<String, String>();
@@ -133,7 +146,7 @@ public class GeneCode implements Serializable {
 		
 		
 		this.name = name;
-		wordLength = l;
+		wordLength = Math.abs(l);
 		
 
 		colors =  new Color[alphabet.length];
@@ -148,6 +161,12 @@ public class GeneCode implements Serializable {
 		init("",0);
 	}
 	
+	/**
+	* Erzeugt einen neuen code
+	
+	*@param g: Gencode
+	*
+	*/
 	public GeneCode(GeneCode g){
 		
 		colors = g.colors.clone();
@@ -171,6 +190,15 @@ public class GeneCode implements Serializable {
 		}
 	}
 	
+	/**
+	* Setzt einen Wert für ein Codon
+	* Nur, wenn das Codon existiert
+	*@param name: Codonsequenz
+	*@param value: gesetzter Wert.
+	*
+	*@return true wenn der Wert gesetzt werden konnte
+	*/
+	
 	public boolean setCodon(String name, String value){
 		
 		if(codons.containsKey(name)){
@@ -180,6 +208,14 @@ public class GeneCode implements Serializable {
 		}
 		return false;
 	}
+	/**
+	* Setzt einen Wert für ein Komplement eines Buchstaben
+	* zB 1 -> 0  oder G -> C
+	*@param name: Buchstabe des Alphabets
+	*@param value: gesetzter Wert.
+	*
+	*@return true wenn der Wert gesetzt werden konnte
+	*/
 	public boolean setComplement(String name, String value){
 		
 		if(complements.containsKey(name)){
@@ -193,9 +229,13 @@ public class GeneCode implements Serializable {
 		return complements.get(letter);
 	}
 	
-	
-	
-	boolean SaveAs(String FileName) throws IOException{
+	/**
+	* Das Objekt wird in eine Datei geschrieben
+	*@param FileName: Name der Datei
+	*
+	*@return true wenn der die Datei geschrieben werden konnte
+	*/
+	public boolean SaveAs(String FileName) throws IOException{
 		
 		 OutputStream file = new FileOutputStream(FileName);
 	     OutputStream buffer = new BufferedOutputStream(file);
@@ -204,18 +244,36 @@ public class GeneCode implements Serializable {
 		 output.close();
 		return true;
 	}
-	
-	static GeneCode ReadCode(String fileName) throws IOException, ClassNotFoundException{
+	/**
+	* Eine Code-Objekt wird aus einer Dateil ausgelesen
+	*@param FileName: Name der Datei
+	*
+	*@return aus der Datei ausgelesenes Objekt
+	*/
+	static GeneCode ReadCode(String fileName) throws IOException{
 		
 		InputStream file = new FileInputStream(fileName);
 	    InputStream buffer = new BufferedInputStream(file);
 	    ObjectInput input = new ObjectInputStream (buffer);
 	
-		 GeneCode result = (GeneCode) input.readObject();
+		 GeneCode result;
+		try {
+			result = (GeneCode) input.readObject();
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			result =null;
+		}
 		 input.close();
 		return result;
 	}
-	
+	/**
+	* Gibt den Wert eines Codons aus
+	* Ist ein Codon nicht vorhanden wird ein leerer String ausgegeben
+	*@param codon: Codonsequenz
+	*
+	*@return Der Wert des Codons
+	*/
 	public String getValue(String codon){
 		String s =  codons.get(codon);
 		if(s!=null)
@@ -223,26 +281,45 @@ public class GeneCode implements Serializable {
 		return "";
 			
 	}
-	
+	/**
+	* 
+	* 
+	*@return Anzahl aller möglichen Codons
+	*/
 	public int getSize(){
 		return codons.size();
 	}
-	public Enumeration<String> getElements(){
+	
+	/**
+	* 
+	*@return Alle Codons
+	*/
+	
+	public Enumeration<String> getCodons(){
 		return codons.keys();
 	}
 	
+	/**
+	* Für die Ausgabe aufbereietete Infromationen
+	*@return formatierter String
+	*/
+	
 	public String toString(){
 		StringBuilder result = new StringBuilder();
-		result.append( "Name:" + name + "\n");
-		result.append("Alphabet: " + new String (alphabet) + "\n");
+		result.append("Name:" + name + "\n");
+		result.append("Alphabet: " + new String(alphabet) + "\n");
 		result.append("Word length: " + wordLength + "\n");
 		Enumeration<String> e = codons.keys();
-		while(e.hasMoreElements()){
+		while (e.hasMoreElements()){
 			String codon = e.nextElement();
 			result.append( codon + " -> " + codons.get(codon) + "\n");
 		}
 		return result.toString();
 	}
+	/**
+	* 
+	*@return Kopie des Objekts
+	*/
 	
 	public GeneCode clone(){
 		GeneCode gc = new GeneCode(this);
@@ -253,21 +330,35 @@ public class GeneCode implements Serializable {
 	public String getName() {
 		return name;
 	}
-	
+	/**
+	* 
+	*@return Kopie des Alphabets
+	*/
 	public char[] getAlphabet(){
 		return alphabet.clone();
 	}
-
+	/**
+	*@param neuer Name
+	*/
 	public void setName(String text) {
-		name = text;
-		// TODO Auto-generated method stub
-		
+		if(text !=null)
+			name = text;
 	}
-
+	/**
+	*
+	*@return die Codonlänge
+	*/
 	public int getCodonLength() {
 		return wordLength;
 		
 	}
+	
+	/**
+	 * Bei der Codesonne ist jedem Winkel ein Codon zugeordnet
+	 * die Methode liefert das entsprechende Codon zurück
+	* @param angle winkel in rad. im Uhrzeigersinn 0 grad -> 3 Uhr
+	*@return Codonsequenz
+	*/
 	
 	public String getCodonKeyFromGraph(double angle){
 		angle %= Math.PI*2;
@@ -282,6 +373,14 @@ public class GeneCode implements Serializable {
 		return key;
 	}
 	
+	/**
+	 * Erzeugt für den Code entsprechende Codesonne
+	 * Ein bild welches alle Codons mit den zugehörigen Werten darstellt
+	 * Bei zu großen Abmessungen wird nur ein Infobild erzeugt 
+	* @param angle winkel in rad. im Uhrzeigersinn 0 grad -> 3 Uhr
+	*@return Codonsequenz
+	*/
+	
 	public BufferedImage getCodeSun(){
 		
 		if(img !=null)
@@ -293,17 +392,17 @@ public class GeneCode implements Serializable {
 		int h = 0;
 		
 		//Abmessungen ausrechnen
-		//diese haengen vom alphabet 
+		//diese haengen vom alphabet ab
 		for(int i = 0;i<wordLength;i++){
 			h += 2*w;
+			//ACHTUNG_1: Die Formel darf nur im Zusammenhang mit ACHTUNG_2 verändert werden
 			w *= alphabet.length/(1+(float)(i+1)/wordLength);
 		}
 		h+=2*BoundDistance;
 		w = h;
-		System.out.println("Bildbreite: "+ w);
+		//System.out.println("Bildbreite: "+ w);
 		
 		if(w>5000){
-			imgTooBig = true;
 			img = new BufferedImage(100, 100, BufferedImage.TYPE_4BYTE_ABGR);
 			img.getGraphics().setColor(Color.WHITE);
 			img.getGraphics().drawString("Bild ist zu Groß", 10, 50);
@@ -328,6 +427,7 @@ public class GeneCode implements Serializable {
 		g2D.setRenderingHint(RenderingHints.KEY_RENDERING,
                  RenderingHints.VALUE_RENDER_QUALITY );
 		
+		//Das Bild wird von Außen nach Innen gezeichnet
 		double arcStep =0;
 		for(int i= wordLength;i > 0;i--){
 			
@@ -368,6 +468,7 @@ public class GeneCode implements Serializable {
 			}
 			int rd = r1-r0;
 			r1 = r0;
+			//ACHTUNG_2:
 			r0 = (int) (r0-rd*alphabet.length*((float)(i-1)/wordLength));
 			if(i-2 == 0)
 				r0 =r1/4;
@@ -377,45 +478,61 @@ public class GeneCode implements Serializable {
 		
 		return img;
 	}
-	//TODO noch nicht fertig
-	public BufferedImage markCodon(double angle){
-		angle %= Math.PI*2;
-		BufferedImage imgMarked = img.getSubimage(0, 0, img.getWidth(), img.getHeight());
-		double angleStep = Math.PI*2;
-		for(int i =0;i<wordLength;i++){
-			angleStep /= alphabet.length;
-			angle %= angleStep;
-		}
-		return imgMarked;
-	}
-
+	
+	/**
+	 * gibt eine der Farbena aus, die beim Erstellen des Bildes verwendet werden
+	* @param index der Farbe. Die Anzahl der Farben entspricht der Länge des Alphabets
+	*@return Farbe
+	*/
 	public Color getColor(int index) {
 		if(colors ==null)
 			return null;
 		return colors[index%colors.length];
 	}
-
+	
+	/**
+	 * neue Farbe zuweisen
+	* @param index der Farbe. Die Anzahl der Farben entspricht der Länge des Alphabets
+	*@param color new Farbe
+	*/
 	public void setColor(int index, Color color) {
 		if(colors!=null){
 			colors[index%colors.length]=color;
 			img =null;
 		}
 	}
+	/**
+	 * Gibt die anzahl der Farben zurück
+	 *@return Anzahl der Farben. Entspricht i.d.R. der Länge des Alphabets
+	*/
 	public int getColorsCount(){
 		if(colors == null)
 			return 0;
 		return colors.length;
 	}
-	
+	/**
+	 *gibt den nächsten verketten Code zurück
+	*@return nächster verketteter Code
+	*/
 	public GeneCode getNextCode(){
 		return nextGeneCode;
 	}
-	
+	/**
+	 * die Codes lassen sich verketten, um zB das Aufeinanderfolgen 
+	 * mehrerer übersetzungen zu repräsentieren
+	 * zB DNA->tRNA->Protein
+	 * 
+	*@return bei zyklischer verkettung false
+	*/
 	public boolean  setNextCode(GeneCode genc){
-		
-		if(genc == null)
-			return false;
-		nextGeneCode = genc.clone();
+		GeneCode tmp;
+		tmp = genc;
+		while(tmp != null){
+			if(tmp == this)
+				return false;
+			tmp = tmp.getNextCode();
+		}
+		nextGeneCode = genc;
 		return true;
 	}
 

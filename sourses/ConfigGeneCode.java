@@ -29,13 +29,17 @@ import javax.swing.ScrollPaneLayout;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableModel;
 
-
+/** 
+*Diese GUI ist ein Dialog für die Konfiguration und Erstellung eines GeneCode-Objekts
+*
+*@author Abel Hodelin Hernandez
+*@author Timur Horn
+*@version 1.0
+*/
 
 public class ConfigGeneCode extends JDialog implements ActionListener,MouseListener {
 
-	/**
-	 * 
-	 */
+	
 	private static final long serialVersionUID = 1L;
 	private final JScrollPane contentPanel;
 	private JTable table;
@@ -50,18 +54,6 @@ public class ConfigGeneCode extends JDialog implements ActionListener,MouseListe
 	JPanel alphabetAddInfoArea;
 	
 
-	/**
-	 * Launch the application.
-	 *
-	public static void main(String[] args) {
-		try {
-			ConfigGeneCode dialog = new ConfigGeneCode();
-			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-			dialog.setVisible(true);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
 
 	/**
 	 * Create the dialog.
@@ -138,7 +130,7 @@ public class ConfigGeneCode extends JDialog implements ActionListener,MouseListe
 		contentPanel.repaint();
 		table.repaint();
 		
-		Enumeration<String> e = gc.getElements();
+		Enumeration<String> e = gc.getCodons();
 		int i = 0;
 		while(e.hasMoreElements()){
 			String codon = e.nextElement();
@@ -247,11 +239,11 @@ public class ConfigGeneCode extends JDialog implements ActionListener,MouseListe
 		 try {
 			gc.SaveAs(f);
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
+		
 			e.printStackTrace();
 			return false;
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
+		
 			e.printStackTrace();
 		}
 		 return true;
@@ -265,7 +257,7 @@ public class ConfigGeneCode extends JDialog implements ActionListener,MouseListe
 			
 			setGeneCode(gc);
 			return gc;
-		} catch (ClassNotFoundException | IOException e) {
+		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} 

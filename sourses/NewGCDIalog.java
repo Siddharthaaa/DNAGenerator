@@ -6,7 +6,13 @@ import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
-
+/** 
+*Ein Hilfsfenster für die Erzeugung eines neuen GeneCodes
+*Enthält nur die nötigsten felder
+*@author Abel Hodelin Hernandez
+*@author Timur Horn
+*@version 1.0
+*/
 
 public class NewGCDIalog extends JDialog {
 	

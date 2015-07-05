@@ -3,6 +3,14 @@ import java.awt.image.BufferedImage;
 
 import javax.swing.JPanel;
 
+/** 
+*Ein Hilfspanel für die Anzeige von Bildern 
+*
+*@author Abel Hodelin Hernandez
+*@author Timur Horn
+*@version 1.0
+*/
+
 
 class ImagePanel extends JPanel{
 	
@@ -22,7 +30,6 @@ class ImagePanel extends JPanel{
 	
 	@Override
 	protected void paintComponent(Graphics g) {
-		// TODO Auto-generated method stub
 		super.paintComponent(g);
 		g.drawImage(img, 0, 0, g.getClipBounds().width, g.getClipBounds().height, null);
 	

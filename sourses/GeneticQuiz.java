@@ -1,47 +1,45 @@
 import java.awt.BorderLayout;
-import java.awt.Checkbox;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
-import java.awt.Graphics2D;
 import java.awt.GridLayout;
-import java.awt.TextArea;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.awt.image.BufferedImage;
-import java.awt.image.ImageConsumer;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import javax.sound.sampled.ReverbType;
-import javax.swing.Icon;
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.JTextPane;
 
-
+/** 
+*GUI, die nach dem starten des Programms angezeigt wird
+*
+*Dies ist die Hauptinteraktionsschnittstelle mit dem Anwender
+*
+*@author Abel Hodelin Hernandez
+*@author Timur Horn
+*@version 1.0
+*/
 
 public class GeneticQuiz extends JFrame implements MouseListener,ItemListener,ActionListener{
 	
 	
+	//Logik 
 	private DnaGenerator dnaGen = new DnaGenerator();
-	JTextPane codeText;
+	private JTextPane codeText;
 	JLabel status;
 	String rightTranslation="";
 	JComboBox<Integer> l;
@@ -203,6 +201,11 @@ public class GeneticQuiz extends JFrame implements MouseListener,ItemListener,Ac
 		//panel.add(status);
 	}
 
+	public GeneticQuiz(String string) {
+		this();
+		this.setTitle(string);
+	}
+
 	private void fillComboBox() {
 		for(int i =0;i<gencodes.size();i++){
 			codeSelectionCB.addItem(gencodes.get(i).getName());
@@ -283,7 +286,7 @@ public class GeneticQuiz extends JFrame implements MouseListener,ItemListener,Ac
 				if(files[i].getName().endsWith(GeneCode.FILEEXTENTION)){
 					try {
 						gencodes.add(GeneCode.ReadCode(files[i].getName()));
-					} catch (ClassNotFoundException | IOException e) {
+					} catch (IOException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
@@ -401,6 +404,12 @@ public class GeneticQuiz extends JFrame implements MouseListener,ItemListener,Ac
 			updateView();
 		}
 		
+	}
+	
+	public static void main(String[] args){
+		GeneticQuiz gq = new GeneticQuiz("Genetik Trainer");
+		gq.setVisible(true);
+		gq.setSize(1100, 800);
 	}
 	
 }
