@@ -21,9 +21,9 @@ import java.awt.RenderingHints;
 import java.awt.geom.Arc2D;
 import java.awt.image.BufferedImage;
 /** 
-*Jedes Objekt der Klasse repräsentiert
-*einen Code, der alle möglichlichen Codons enthält.
-*Codons sind Wörter fester Länge über dem Alphabet
+*Jedes Objekt der Klasse repr\u00E4sentiert
+*einen Code, der alle möglichlichen Codons enth\u00E4lt.
+*Codons sind W\u00F6rter fester Länge über dem Alphabet
 *
 *@author Abel Hodelin Hernandez
 *@author Timur Horn
@@ -191,7 +191,7 @@ public class GeneCode implements Serializable,Cloneable {
 	}
 	
 	/**
-	* Setzt einen Wert für ein Codon
+	* Setzt einen Wert f\u00FCr ein Codon
 	* Nur, wenn das Codon existiert
 	*@param name: Codonsequenz
 	*@param value: gesetzter Wert.
@@ -209,7 +209,7 @@ public class GeneCode implements Serializable,Cloneable {
 		return false;
 	}
 	/**
-	* Setzt einen Wert für ein Komplement eines Buchstaben
+	* Setzt einen Wert f\u00FCr ein Komplement eines Buchstaben
 	* zB 1 -> 0  oder G -> C
 	*@param name: Buchstabe des Alphabets
 	*@param value: gesetzter Wert.
@@ -300,7 +300,7 @@ public class GeneCode implements Serializable,Cloneable {
 	}
 	
 	/**
-	* Für die Ausgabe aufbereietete Infromationen
+	* F\u00FCr die Ausgabe aufbereietete Infromationen
 	*@return formatierter String
 	*/
 	
@@ -355,7 +355,7 @@ public class GeneCode implements Serializable,Cloneable {
 	
 	/**
 	 * Bei der Codesonne ist jedem Winkel ein Codon zugeordnet
-	 * die Methode liefert das entsprechende Codon zurück
+	 * die Methode liefert das entsprechende Codon zur\u00FCck
 	* @param angle winkel in rad. im Uhrzeigersinn 0 grad -> 3 Uhr
 	*@return Codonsequenz
 	*/
@@ -503,7 +503,7 @@ public class GeneCode implements Serializable,Cloneable {
 	}
 	/**
 	 * Gibt die anzahl der Farben zurück
-	 *@return Anzahl der Farben. Entspricht i.d.R. der Länge des Alphabets
+	 *@return Anzahl der Farben. Entspricht i.d.R. der L\u00E4nge des Alphabets
 	*/
 	public int getColorsCount(){
 		if(colors == null)
@@ -519,10 +519,10 @@ public class GeneCode implements Serializable,Cloneable {
 	}
 	/**
 	 * die Codes lassen sich verketten, um zB das Aufeinanderfolgen 
-	 * mehrerer übersetzungen zu repräsentieren
+	 * mehrerer \u00FCbersetzungen zu repräsentieren
 	 * zB DNA->tRNA->Protein
 	 * 
-	*@return bei zyklischer verkettung false
+	*@return bei zyklischer Verkettung false
 	*/
 	public boolean  setNextCode(GeneCode genc){
 		GeneCode tmp;

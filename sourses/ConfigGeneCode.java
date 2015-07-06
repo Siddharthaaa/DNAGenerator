@@ -30,7 +30,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableModel;
 
 /** 
-*Diese GUI ist ein Dialog für die Konfiguration und Erstellung eines GeneCode-Objekts
+*Diese GUI ist ein Dialog f\u00FCr die Konfiguration und Erstellung eines GeneCode-Objekts
 *
 *@author Abel Hodelin Hernandez
 *@author Timur Horn
