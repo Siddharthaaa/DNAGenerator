@@ -21,9 +21,9 @@ import java.awt.RenderingHints;
 import java.awt.geom.Arc2D;
 import java.awt.image.BufferedImage;
 /** 
-*Jedes Objekt der Klasse repr\u00E4sentiert
-*einen Code, der alle möglichlichen Codons enth\u00E4lt.
-*Codons sind W\u00F6rter fester Länge über dem Alphabet
+*Jedes Objekt der Klasse repräsentiert
+*einen Code, der alle möglichlichen Codons enthält.
+*Codons sind Wörter fester Länge über dem Alphabet
 *
 *@author Abel Hodelin Hernandez
 *@author Timur Horn
@@ -37,6 +37,7 @@ public class GeneCode implements Serializable,Cloneable {
 	private String name;
 	private char[] alphabet;
 	private int wordLength;
+	private char[] initiateValues = new char[]{'*'};
 	//referenz für das erzeugete Bild
 	private BufferedImage img;
 	//Bestimmt indirekt die Auflösung des Bildes
@@ -129,11 +130,14 @@ public class GeneCode implements Serializable,Cloneable {
 	*@param l: Codonlänge
 	*
 	*/
-	public GeneCode(String name, String alph, int l){
+	public GeneCode(String name, String alph, int l,String initValues){
+		
 		
 		codons = new Hashtable<String, String>();
 		complements = new Hashtable<String, String>();
 		this.alphabet = alph.toCharArray();
+		if(initValues != null && initValues.length()>0)
+			initiateValues = initValues.toCharArray();
 		alph="";
 		for(char c: alphabet){
 			if(!alph.contains(c + "")){
@@ -147,18 +151,21 @@ public class GeneCode implements Serializable,Cloneable {
 		
 		this.name = name;
 		wordLength = Math.abs(l);
+		//Bei zu vielen moeglichen Codons wird die laenge auf 1 geschraenkt
+		//(schlechter programmierstill)
+		if(Math.pow(alphabet.length, wordLength)>100000)
+			wordLength =1;
 		
-
 		colors =  new Color[alphabet.length];
 		for(int i = 0;i<colors.length;i++){
 			float f = (float) (0.5f+0.5*((float)i/colors.length));
 			colors[i] = new Color(f,f,f);
 		}
-
-		
-		
-		
 		init("",0);
+	
+	}
+	public GeneCode(String name, String alph, int l){
+		this(name,alph,l,"*");
 	}
 	
 	/**
@@ -175,6 +182,8 @@ public class GeneCode implements Serializable,Cloneable {
 		name = g.name;
 		wordLength = g.wordLength;
 		complements = (Hashtable<String, String>) g.complements.clone();
+		if(g.nextGeneCode!=null)
+		nextGeneCode = g.nextGeneCode.clone();
 		
 	}
 	
@@ -186,12 +195,12 @@ public class GeneCode implements Serializable,Cloneable {
 			}
 		}
 		else{
-			codons.put(prefix, "*");
+			codons.put(prefix, (initiateValues[codons.size()%initiateValues.length]) + "");
 		}
 	}
 	
 	/**
-	* Setzt einen Wert f\u00FCr ein Codon
+	* Setzt einen Wert für ein Codon
 	* Nur, wenn das Codon existiert
 	*@param name: Codonsequenz
 	*@param value: gesetzter Wert.
@@ -209,7 +218,7 @@ public class GeneCode implements Serializable,Cloneable {
 		return false;
 	}
 	/**
-	* Setzt einen Wert f\u00FCr ein Komplement eines Buchstaben
+	* Setzt einen Wert für ein Komplement eines Buchstaben
 	* zB 1 -> 0  oder G -> C
 	*@param name: Buchstabe des Alphabets
 	*@param value: gesetzter Wert.
@@ -300,7 +309,7 @@ public class GeneCode implements Serializable,Cloneable {
 	}
 	
 	/**
-	* F\u00FCr die Ausgabe aufbereietete Infromationen
+	* Für die Ausgabe aufbereietete Infromationen
 	*@return formatierter String
 	*/
 	
@@ -355,7 +364,7 @@ public class GeneCode implements Serializable,Cloneable {
 	
 	/**
 	 * Bei der Codesonne ist jedem Winkel ein Codon zugeordnet
-	 * die Methode liefert das entsprechende Codon zur\u00FCck
+	 * die Methode liefert das entsprechende Codon zurück
 	* @param angle winkel in rad. im Uhrzeigersinn 0 grad -> 3 Uhr
 	*@return Codonsequenz
 	*/
@@ -503,7 +512,7 @@ public class GeneCode implements Serializable,Cloneable {
 	}
 	/**
 	 * Gibt die anzahl der Farben zurück
-	 *@return Anzahl der Farben. Entspricht i.d.R. der L\u00E4nge des Alphabets
+	 *@return Anzahl der Farben. Entspricht i.d.R. der Länge des Alphabets
 	*/
 	public int getColorsCount(){
 		if(colors == null)
@@ -519,10 +528,10 @@ public class GeneCode implements Serializable,Cloneable {
 	}
 	/**
 	 * die Codes lassen sich verketten, um zB das Aufeinanderfolgen 
-	 * mehrerer \u00FCbersetzungen zu repräsentieren
+	 * mehrerer übersetzungen zu repräsentieren
 	 * zB DNA->tRNA->Protein
 	 * 
-	*@return bei zyklischer Verkettung false
+	*@return bei zyklischer verkettung false
 	*/
 	public boolean  setNextCode(GeneCode genc){
 		GeneCode tmp;

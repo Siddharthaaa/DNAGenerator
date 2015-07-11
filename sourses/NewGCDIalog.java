@@ -19,6 +19,7 @@ public class NewGCDIalog extends JDialog {
 	GeneCode gc;
 	JTextField at;
 	JTextField lt;
+	JTextField initVal;
 
 	public NewGCDIalog(){
 		//gc = new GeneCode();
@@ -27,12 +28,14 @@ public class NewGCDIalog extends JDialog {
 	
 	private void createLabel(){
 		
-		this.setLayout(new GridLayout(3, 2));
+		this.setLayout(new GridLayout(4, 2));
 		
 		JLabel alphabet = new JLabel("Alphabet:");
 		JLabel wl = new JLabel("Word length:");
+		JLabel init = new JLabel("Init values:");
 		 at = new JTextField("ABC");
 		 lt = new JTextField("3");
+		 initVal = new JTextField("*");
 		
 		JButton okButton = new JButton("OK");
 		okButton.addActionListener(new ActionListener() {
@@ -51,6 +54,8 @@ public class NewGCDIalog extends JDialog {
 		add(at);
 		add(wl);
 		add(lt);
+		add(init);
+		add(initVal);
 		add(okButton);
 		
 		setSize(200,100);
@@ -59,7 +64,8 @@ public class NewGCDIalog extends JDialog {
 	private void createGC(){
 		String test = lt.getText();
 		int l = Integer.parseInt(lt.getText());
-		gc = new GeneCode("New", at.getText(), l);
+		initVal.getText();
+		gc = new GeneCode("New", at.getText(), l,initVal.getText());
 	}
 	
 	public GeneCode getResult(){
