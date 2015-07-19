@@ -227,9 +227,9 @@ public class DnaGenerator
 	}
 	
 	/**
-	*Erzeugt eine Zufaellige Sequenz anhand vom geneCode
-	*@param length: Laenge der sequenz nach dem Uebersetzen der zu erzeugenden Sequenz
-	*@param geneCode: der fuer die Erzeugung verwendete Code
+	*Erzeugt eine Zuf\u00E4llige Sequenz anhand vom geneCode
+	*@param length: L\u00E4nge der sequenz nach dem \u00DCbersetzen der zu erzeugenden Sequenz
+	*@param geneCode: der f\u00FCr die Erzeugung verwendete Code
 	*@return zufaellige Sequenz
 	*/
 	public String generateDNA_new(int length, GeneCode geneCode) {
@@ -256,10 +256,10 @@ public class DnaGenerator
 		return crSeq;
 	}
 	/**
-	*Prueft, ob die eingabe mit der Uebersetzung uebereinstimmt
+	*Pr\u00FCft, ob die eingabe mit der \u00DCbersetzung \u00FCbereinstimmt
 	*@param querySequence: vom User vorgeschlagene Seq
 	*@param reverse: ob es sich um eine invertierte Sequens handelt
-	*@return true wenn die Übersetzung richtig ist
+	*@return true wenn die \u00DCbersetzung richtig ist
 	*/
 	
 	public boolean checkSequence_new(String querySequence, boolean reverse) {
@@ -274,7 +274,7 @@ public class DnaGenerator
 		
 	}
 	/**
-	*Prueft, ob die eingabe mit der Uebersetzung uebereinstimmt
+	*Pr\u00FCft, ob die eingabe mit der \u00DCbersetzung \u00FCbereinstimmt
 	*@return Alle entstandenen Translationen mit "\n" getrennt
 	*/
 
@@ -284,8 +284,8 @@ public class DnaGenerator
 	
 	
 	/**
-	*Eine rekursive Funktion, die eine Sequenz anhand eines Codes uebersetzt
-	*@param seq: die zu uebersetzende Sequenz
+	*Eine rekursive Funktion, die eine Sequenz anhand eines Codes \u00FCbersetzt
+	*@param seq: die zu \u00FCbersetzende Sequenz
 	*@param gc: der zu verwendende Code
 	*@return Alle entstandenen Translationen mit "\n" getrennt
 	*/
